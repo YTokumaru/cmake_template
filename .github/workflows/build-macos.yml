@@ -52,7 +52,6 @@ jobs:
           # if you try to use a compiler that does not have gcov set
           - compiler: gcc-11
             gcov_executable: gcov
-            enable_ipo: On
 
           - compiler: llvm-15.0.2
             enable_ipo: Off
