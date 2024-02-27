@@ -1,4 +1,4 @@
-name: ci
+name: build(Ubuntu)
 on:
   pull_request:
   release:
