@@ -8,6 +8,7 @@ on:
     branches:
       - main
       - develop
+      - "*" # For testing purposes
 
 env:
   CLANG_TIDY_VERSION: "15.0.2"
