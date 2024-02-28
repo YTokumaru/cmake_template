@@ -16,10 +16,9 @@ env:
 
 jobs:
   Test:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubntu-latest
     strategy:
       fail-fast: false
-
       # Recommendations:
       #   * support at least 2 operating systems
       #   * support at least 2 compilers
@@ -28,8 +27,6 @@ jobs:
       # Disable/enable builds in this list to meet the above recommendations
       # and your own projects needs
       matrix:
-        os:
-          - ubuntu-latest
         compiler:
           # you can specify the version after `-` like "llvm-15.0.2".
           - llvm-15.0.2
@@ -62,8 +59,7 @@ jobs:
             package_generator: TBZ2
 
           # This exists solely to make sure a non-multiconfig build works
-          - os: ubuntu-latest
-            compiler: gcc-11
+          - compiler: gcc-11
             generator: "Unix Makefiles"
             build_type: Debug
             gcov_executable: gcov
