@@ -16,7 +16,7 @@ env:
 
 jobs:
   Test:
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
     strategy:
       fail-fast: false
 
@@ -28,15 +28,12 @@ jobs:
       # Disable/enable builds in this list to meet the above recommendations
       # and your own projects needs
       matrix:
-        os:
-          - windows-latest
         compiler:
           # you can specify the version after `-` like "llvm-15.0.2".
           - llvm-15.0.2
+          - msvc
           # mingw is determined by this author to be too buggy to support
           # - gcc-11
-        generator:
-          - "Ninja Multi-Config"
         build_type:
           - Release
           - Debug
@@ -48,45 +45,25 @@ jobs:
 
         include:
           - compiler: llvm-15.0.2
+            generator: "Ninja Multi-Config"
             enable_ipo: Off
             gcov_executable: "llvm-cov gcov"
+
+          - compiler: msvc
+            generator: "Visual Studio 17 2022"
+            enable_ipo: On
 
           # Set up preferred package generators, for given build configurations
           - build_type: Release
             packaging_maintainer_mode: OFF
             package_generator: TBZ2
 
-          # Windows msvc builds
-          - os: windows-latest
-            compiler: msvc
-            generator: "Visual Studio 17 2022"
-            build_type: Debug
-            packaging_maintainer_mode: On
-            enable_ipo: On
-
-          - os: windows-latest
-            compiler: msvc
-            generator: "Visual Studio 17 2022"
-            build_type: Release
-            packaging_maintainer_mode: On
-            enable_ipo: On
-
-          - os: windows-latest
-            compiler: msvc
-            generator: "Visual Studio 17 2022"
-            build_type: Debug
-            packaging_maintainer_mode: Off
-
-          - os: windows-lastest
-            compiler: msvc
-            generator: "Visual Studio 17 2022"
+          - compiler: msvc
             build_type: Release
             packaging_maintainer_mode: Off
             package_generator: ZIP
 
-          - os: windows-latest
-            compiler: msvc
-            generator: "Visual Studio 17 2022"
+          - compiler: msvc
             build_type: Release
             packaging_maintainer_mode: On
             enable_ipo: On
