@@ -8,6 +8,8 @@
 
 This is a C++ Best Practices GitHub template for getting up and running with C++ quickly.
 
+TODO: Write about RelWithDebInfo build type
+TOFIX: On Windows, ENABLE_DEVELOPER_MODE, ENABLE_CPP_CHECK_DEFAULT, ENABLE_CLANG_TIDY_DEFAULT are not parsed by CMake?
 By default (collectively known as `ENABLE_DEVELOPER_MODE`)
 
  * Address Sanitizer and Undefined Behavior Sanitizer enabled where possible
