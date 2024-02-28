@@ -16,7 +16,7 @@ env:
 
 jobs:
   Test:
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-latest
     strategy:
       fail-fast: false
 
@@ -28,8 +28,6 @@ jobs:
       # Disable/enable builds in this list to meet the above recommendations
       # and your own projects needs
       matrix:
-        os:
-          - macos-latest
         compiler:
           # you can specify the version after `-` like "llvm-15.0.2".
           - llvm-15.0.2
