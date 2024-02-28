@@ -20,7 +20,8 @@ function(myproject_enable_cache)
 
   find_program(CACHE_BINARY NAMES ${CACHE_OPTION_VALUES})
   if(CACHE_BINARY)
-    message(STATUS "${CACHE_BINARY} found and enabled")
+    get_binary_version(CACHE_BINARY_VERSION ${CACHE_BINARY})
+    message(STATUS "${CACHE_BINARY} ${CACHE_BINARY_VERSION} found. Using it as compiler cache")
     set(CMAKE_CXX_COMPILER_LAUNCHER
         ${CACHE_BINARY}
         CACHE FILEPATH "CXX compiler cache used")
