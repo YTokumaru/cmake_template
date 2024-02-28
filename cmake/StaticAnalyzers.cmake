@@ -1,7 +1,7 @@
 macro(myproject_enable_cppcheck WARNINGS_AS_ERRORS CPPCHECK_OPTIONS)
   find_program(CPPCHECK cppcheck)
   if(CPPCHECK)
-
+    get_binary_version(CPPCHECK_VERSION ${CPPCHECK})
     if(CMAKE_GENERATOR MATCHES ".*Visual Studio.*")
       set(CPPCHECK_TEMPLATE "vs")
     else()
@@ -41,6 +41,8 @@ macro(myproject_enable_cppcheck WARNINGS_AS_ERRORS CPPCHECK_OPTIONS)
     if(${WARNINGS_AS_ERRORS})
       list(APPEND CMAKE_CXX_CPPCHECK --error-exitcode=2)
     endif()
+    message(STATUS "${CPPCHECK} ${CPPCHECK_VERSION}: found")
+    message(STATUS "Enabling cppcheck with options: ${CMAKE_CXX_CPPCHECK}")
   else()
     message(${WARNING_MESSAGE} "cppcheck requested but executable not found")
   endif()
@@ -50,6 +52,7 @@ macro(myproject_enable_clang_tidy target WARNINGS_AS_ERRORS)
 
   find_program(CLANGTIDY clang-tidy)
   if(CLANGTIDY)
+    get_binary_version(CLANGTIDY_VERSION ${CLANGTIDY})
     if(NOT
        CMAKE_CXX_COMPILER_ID
        MATCHES
@@ -91,8 +94,9 @@ macro(myproject_enable_clang_tidy target WARNINGS_AS_ERRORS)
     if(${WARNINGS_AS_ERRORS})
       list(APPEND CLANG_TIDY_OPTIONS -warnings-as-errors=*)
     endif()
-
-    message("Also setting clang-tidy globally")
+    message(STATUS "${CLANGTIDY} ${CLANGTIDY_VERSION}: found")
+    message(STATUS "Enabling clang-tidy with options: ${CLANG_TIDY_OPTIONS}")
+    message(STATUS "clang-tidy will be run on target ${target}")
     set(CMAKE_CXX_CLANG_TIDY ${CLANG_TIDY_OPTIONS})
   else()
     message(${WARNING_MESSAGE} "clang-tidy requested but executable not found")
