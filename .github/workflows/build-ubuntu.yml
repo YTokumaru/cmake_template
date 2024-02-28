@@ -30,7 +30,7 @@ jobs:
         compiler:
           # you can specify the version after `-` like "llvm-15.0.2".
           - llvm-15.0.2
-          - gcc-11
+          - gcc-12
         generator:
           - "Ninja Multi-Config"
         build_type:
@@ -45,7 +45,7 @@ jobs:
         include:
           # Add appropriate variables for gcov version required. This will intentionally break
           # if you try to use a compiler that does not have gcov set
-          - compiler: gcc-11
+          - compiler: gcc-12
             gcov_executable: gcov
             enable_ipo: On
 
@@ -59,7 +59,7 @@ jobs:
             package_generator: TBZ2
 
           # This exists solely to make sure a non-multiconfig build works
-          - compiler: gcc-11
+          - compiler: gcc-12
             generator: "Unix Makefiles"
             build_type: Debug
             gcov_executable: gcov

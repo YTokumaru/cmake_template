@@ -33,7 +33,7 @@ jobs:
           - llvm-15.0.2
           - msvc
           # mingw is determined by this author to be too buggy to support
-          # - gcc-11
+          # - gcc-12
         build_type:
           - Release
           - Debug
