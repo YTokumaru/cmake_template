@@ -10,10 +10,6 @@ on:
       - develop
       - "*" # For testing purposes
 
-env:
-  CLANG_TIDY_VERSION: "15.0.2"
-  VERBOSE: 1
-
 jobs:
   Test:
     runs-on: windows-latest
