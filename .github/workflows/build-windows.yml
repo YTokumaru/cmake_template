@@ -55,16 +55,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          choco install visualstudio2022buildtools --package-parameters "--config $env:GITHUB_WORKSPACE/.vsconfig"
-          echo $(vswhere -products * -latest -prerelease -find **/Hostx64/x64/*) | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-          echo $(vswhere -products * -latest -prerelease -find **/Llvm/bin/*) | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-          echo $(vswhere -products * -latest -prerelease -find **/Auxiliary/Build/*) | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-          echo $(vswhere -products * -latest -prerelease -find **/CMake/Ninja) | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-          echo $(vswhere -products * -latest -prerelease -find **/CMake/CMake) | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-          
+          choco install visualstudio2022buildtools --package-parameters "--config $env:GITHUB_WORKSPACE/.vsconfig"        
           choco install ccache
           choco install cppcheck
           choco install opencppcoverage
+          choco install vswhere
         shell: pwsh
 
         
@@ -76,12 +71,16 @@ jobs:
 
       - name: Configure CMake
         run: |
+          Import-Module 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\Microsoft.VisualStudio.DevShell.dll'
+          Enter-VsDevShell $(vswhere -latest -property instanceId) -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'
           cmake -S . -B ./build --preset ${{matrix.preset}} -D${{ env.PROJECT_NAME }}_ENABLE_COVERAGE:BOOL=${{ contains(matrix.preset,'debug') }} -DGIT_SHA:STRING=${{ github.sha }}
         shell: pwsh
 
       - name: Build
         # Execute the build.
         run: |
+          Import-Module 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\Microsoft.VisualStudio.DevShell.dll'
+          Enter-VsDevShell $(vswhere -latest -property instanceId) -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'
           cmake --build ./build
         shell: pwsh
 
