@@ -68,6 +68,13 @@ jobs:
           choco install opencppcoverage
         shell: pwsh
 
+        
+      - name: (Debug) Print Path
+        run: |
+          echo $env:Path
+        shell: pwsh
+
+
       - name: Configure CMake
         run: |
           cmake -S . -B ./build --preset ${{matrix.preset}} -D${{ env.PROJECT_NAME }}_ENABLE_COVERAGE:BOOL=${{ contains(matrix.preset,'debug') }} -DGIT_SHA:STRING=${{ github.sha }}
