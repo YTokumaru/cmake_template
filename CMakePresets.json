@@ -38,7 +38,7 @@
     },
     {
       "name": "conf-windows-msvc-common",
-      "description": "Windows settings for MSBuild toolchain that apply to mscv",
+      "description": "Windows settings for MSBuild toolchain that apply to msvc",
       "hidden": true,
       "inherits": "conf-windows-common",
       "generator": "Visual Studio 17 2022",
@@ -69,10 +69,7 @@
       "condition": {
         "type": "inList",
         "string": "${hostSystemName}",
-        "list": [
-          "Linux",
-          "Darwin"
-        ]
+        "list": ["Linux", "Darwin"]
       },
       "vendor": {
         "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
@@ -93,7 +90,7 @@
       "name": "windows-msvc-release",
       "displayName": "msvc Release",
       "description": "Target Windows with the msvc compiler, release build type",
-      "inherits": "conf-windows-llvm-common",
+      "inherits": "conf-windows-msvc-common",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
@@ -102,7 +99,7 @@
       "name": "windows-clang-debug",
       "displayName": "clang Debug",
       "description": "Target Windows with the clang compiler, debug build type",
-      "inherits": "conf-windows-common",
+      "inherits": "conf-windows-llvm-common",
       "cacheVariables": {
         "CMAKE_C_COMPILER": "clang-cl",
         "CMAKE_CXX_COMPILER": "clang-cl",
@@ -118,7 +115,7 @@
       "name": "windows-clang-release",
       "displayName": "clang Release",
       "description": "Target Windows with the clang compiler, release build type",
-      "inherits": "conf-windows-common",
+      "inherits": "conf-windows-llvm-common",
       "cacheVariables": {
         "CMAKE_C_COMPILER": "clang-cl",
         "CMAKE_CXX_COMPILER": "clang-cl",
