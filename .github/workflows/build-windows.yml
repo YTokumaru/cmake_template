@@ -35,7 +35,8 @@ jobs:
           - windows-clang-release
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Check out repository code
+        uses: actions/checkout@v3
 
       # TODO: Add caching with presets
       # - name: Setup Cache
@@ -46,15 +47,14 @@ jobs:
       #     packaging_maintainer_mode: ${{ matrix.packaging_maintainer_mode }}
       #     generator: ${{ matrix.generator }}
 
-      - name: Project Name
+      - name: Get project name
         uses: cardinalby/export-env-action@v2
         with:
           envFile: ".github/constants.env"
 
       - name: Install dependencies
         run: |
-          choco install visualstudio2022buildtools
-          "C:\Program Files (x86)\Microsoft Visual Studio\Installer\setup.exe" modify --config ".vsconfig"
+          choco install visualstudio2022buildtools --package-parameters "add --config '${{ env.GITHUB_WORKSPACE }}/.vsconfig'"
           choco install ccache
           choco install cppcheck
           choco install opencppcoverage
