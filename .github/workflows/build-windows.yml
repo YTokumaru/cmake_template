@@ -63,9 +63,9 @@ jobs:
           cmake -S . -B ./build --preset ${{matrix.preset}} -D${{ env.PROJECT_NAME }}_ENABLE_COVERAGE:BOOL=${{ contains(matrix.preset,'debug') }} -DGIT_SHA:STRING=${{ github.sha }}
 
       - name: Build
-        # Execute the build.  You can specify a specific target with "--target <NAME>"
+        # Execute the build.
         run: |
-          cmake --build ./build --preset ${{matrix.preset}}
+          cmake --build ./build
 
       - name: Windows - Test and coverage
         working-directory: ./build
