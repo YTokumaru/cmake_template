@@ -28,55 +28,14 @@ jobs:
       # Disable/enable builds in this list to meet the above recommendations
       # and your own projects needs
       matrix:
-        compiler:
-          # you can specify the version after `-` like "llvm-15.0.2".
-          - llvm-15.0.2
-          - msvc
-          # mingw is determined by this author to be too buggy to support
-          # - gcc-12
-        build_type:
-          - Release
-          - Debug
-        packaging_maintainer_mode:
-          - ON
-          - OFF
-        build_shared:
-          - OFF
-
-        include:
-          - compiler: llvm-15.0.2
-            generator: "Ninja Multi-Config"
-            enable_ipo: Off
-            gcov_executable: "llvm-cov gcov"
-
-          - compiler: msvc
-            generator: "Visual Studio 17 2022"
-            enable_ipo: On
-
-          # Set up preferred package generators, for given build configurations
-          - build_type: Release
-            packaging_maintainer_mode: OFF
-            package_generator: TBZ2
-
-          - compiler: msvc
-            build_type: Release
-            packaging_maintainer_mode: Off
-            package_generator: ZIP
-
-          - compiler: msvc
-            build_type: Release
-            packaging_maintainer_mode: On
-            enable_ipo: On
-            build_shared: On
+        preset:
+          - windows-msvc-debug
+          - windows-msvc-release
+          - windows-clang-debug
+          - windows-clang-release
+            
 
     steps:
-      - name: Check for llvm version mismatches
-        if: ${{ contains(matrix.compiler, 'llvm') && !contains(matrix.compiler, env.CLANG_TIDY_VERSION) }}
-        uses: actions/github-script@v3
-        with:
-          script: |
-            core.setFailed('There is a mismatch between configured llvm compiler and clang-tidy version chosen')
-
       - uses: actions/checkout@v3
 
       - name: Setup Cache
@@ -91,8 +50,20 @@ jobs:
         uses: cardinalby/export-env-action@v2
         with:
           envFile: ".github/constants.env"
+      
+      - name: Install dependencies
+        run: |
+          choco install visualstudio2022buildtools --layout --config ".github/.vsconfig"
+          choco install ccache
+          choco install cppcheck
+          choco install opencppcoverage
 
-      - name: Setup Cpp
+      - name: Configure CMake
+        run: |
+          cmake -S . -B ./build --preset ${{matrix.preset}} -D${{ env.PROJECT_NAME }}_ENABLE_COVERAGE:BOOL=${{ contains(matrix.preset,debug) }} -DGIT_SHA:STRING=${{ github.sha }}
+
+
+      - name: Setup Environmen
         uses: aminya/setup-cpp@v1
         with:
           compiler: ${{ matrix.compiler }}
@@ -109,32 +80,17 @@ jobs:
           gcovr: true
           opencppcoverage: true
 
-      - name: Configure CMake
-        run: |
-          cmake -S . -B ./build -G "${{matrix.generator}}" -D${{ env.PROJECT_NAME }}_ENABLE_IPO=${{matrix.enable_ipo }} -DCMAKE_BUILD_TYPE:STRING=${{matrix.build_type}} -D${{ env.PROJECT_NAME }}_PACKAGING_MAINTAINER_MODE:BOOL=${{matrix.packaging_maintainer_mode}} -D${{ env.PROJECT_NAME }}_ENABLE_COVERAGE:BOOL=${{ matrix.build_type == 'Debug' }} -DGIT_SHA:STRING=${{ github.sha }}
+     
 
       - name: Build
         # Execute the build.  You can specify a specific target with "--target <NAME>"
         run: |
-          cmake --build ./build --config ${{matrix.build_type}}
+          cmake --build ./build --preset ${{matrix.preset}}
 
       - name: Windows - Test and coverage
         working-directory: ./build
         run: |
-          OpenCppCoverage.exe --export_type cobertura:coverage.xml --cover_children -- ctest -C ${{matrix.build_type}}
-
-      - name: CPack
-        if: matrix.package_generator != ''
-        working-directory: ./build
-        run: |
-          cpack -C ${{matrix.build_type}} -G ${{matrix.package_generator}}
-
-      - name: Publish Tagged Release
-        uses: softprops/action-gh-release@v1
-        if: ${{ startsWith(github.ref, 'refs/tags/') && matrix.package_generator != '' }}
-        with:
-          files: |
-            build/*-*${{ matrix.build_type }}*-*.*
+          OpenCppCoverage.exe --export_type cobertura:coverage.xml --cover_children -- ctest --preset ${{matrix.preset}}
 
       - name: Publish to codecov
         uses: codecov/codecov-action@v2
