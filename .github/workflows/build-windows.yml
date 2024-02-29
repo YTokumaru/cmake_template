@@ -54,7 +54,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          choco install visualstudio2022buildtools --package-parameters "add --config 'env:GITHUB_WORKSPACE/.vsconfig'"
+          choco install visualstudio2022buildtools --package-parameters "add --config '$env:GITHUB_WORKSPACE/.vsconfig'"
           choco install ccache
           choco install cppcheck
           choco install opencppcoverage
