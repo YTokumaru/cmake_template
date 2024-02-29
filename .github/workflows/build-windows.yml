@@ -48,11 +48,22 @@ jobs:
         with:
           envFile: ".github/constants.env"
 
+      - name: (Debug) Print Path
+        run: |
+          echo $env:Path
+        shell: pwsh
+
       - name: Install dependencies
         run: |
+          Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
           choco install visualstudio2022buildtools --package-parameters "--config $env:GITHUB_WORKSPACE/.vsconfig"
+          $clpath = vswhere -products * -latest -prerelease -find **/Hostx64/x64/*
+          $clangpath = vswhere -products * -latest -prerelease -find **/Llvm/bin/*
+          $vcvarsallpath =  vswhere -products * -latest -prerelease -find **/Auxiliary/Build/*
+          $path = [System.Environment]::GetEnvironmentVariable("PATH", "User")
+          [Environment]::SetEnvironmentVariable("Path", $path + ";$clpath" + ";$clangpath" + ";$vcvarsallpath", "User")
+          refreshenv
           choco install ccache
-          choco install ninja
           choco install cppcheck
           choco install opencppcoverage
         shell: pwsh
