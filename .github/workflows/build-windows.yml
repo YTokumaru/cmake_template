@@ -53,7 +53,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          choco install visualstudio2022buildtools --layout --config '.github/.vsconfig'
+          choco install visualstudio2022buildtools --package-parameters="'--layout --config .github/.vsconfig'"
           choco install ccache
           choco install cppcheck
           choco install opencppcoverage
