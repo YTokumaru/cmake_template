@@ -63,16 +63,19 @@ jobs:
       - name: Configure CMake
         run: |
           cmake -S . -B ./build --preset ${{matrix.preset}} -D${{ env.PROJECT_NAME }}_ENABLE_COVERAGE:BOOL=${{ contains(matrix.preset,'debug') }} -DGIT_SHA:STRING=${{ github.sha }}
+        shell: pwsh
 
       - name: Build
         # Execute the build.
         run: |
           cmake --build ./build
+        shell: pwsh
 
       - name: Windows - Test and coverage
         working-directory: ./build
         run: |
           OpenCppCoverage.exe --export_type cobertura:coverage.xml --cover_children -- ctest --preset ${{matrix.preset}}
+        shell: pwsh
 
       - name: Publish to codecov
         uses: codecov/codecov-action@v2
