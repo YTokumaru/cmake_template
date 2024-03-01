@@ -34,8 +34,10 @@ target_link_libraries(
   tests
   PRIVATE myproject::myproject_warnings
           myproject::myproject_options
-          myproject::sample_library
-          Catch2::Catch2WithMain)
+          myproject::sample_library)
+
+target_link_system_libraries(tests PRIVATE Catch2::Catch2WithMain)
+
 
 if(WIN32 AND BUILD_SHARED_LIBS)
   add_custom_command(
@@ -66,8 +68,8 @@ target_link_libraries(
   constexpr_tests
   PRIVATE myproject::myproject_warnings
           myproject::myproject_options
-          myproject::sample_library
-          Catch2::Catch2WithMain)
+          myproject::sample_library)
+target_link_system_libraries(constexpr_tests PRIVATE Catch2::Catch2WithMain)
 
 catch_discover_tests(
   constexpr_tests
@@ -89,8 +91,9 @@ target_link_libraries(
   relaxed_constexpr_tests
   PRIVATE myproject::myproject_warnings
           myproject::myproject_options
-          myproject::sample_library
-          Catch2::Catch2WithMain)
+          myproject::sample_library)
+target_link_system_libraries(relaxed_constexpr_tests PRIVATE Catch2::Catch2WithMain)
+    
 target_compile_definitions(relaxed_constexpr_tests PRIVATE -DCATCH_CONFIG_RUNTIME_STATIC_REQUIRE)
 
 catch_discover_tests(
