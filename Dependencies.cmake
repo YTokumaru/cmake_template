@@ -62,14 +62,14 @@ function(myproject_setup_dependencies)
         "FTXUI_BUILD_EXAMPLES OFF")
   endif()
 
-  if(NOT TARGET tools::tools)
-    cpmaddpackage(
-      NAME
-        tools
-      GITHUB_REPOSITORY
-        "lefticus/tools"
-      GIT_TAG
-        "update_build_system")  
-  endif()
+  # if(NOT TARGET tools::tools)
+  #   cpmaddpackage(
+  #     NAME
+  #       tools
+  #     GITHUB_REPOSITORY
+  #       "lefticus/tools"
+  #     GIT_TAG
+  #       "update_build_system")  
+  # endif()
 
 endfunction()
