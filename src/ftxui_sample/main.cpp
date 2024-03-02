@@ -1,14 +1,24 @@
 #include <array>
 #include <functional>
+#include <string>
+#include <vector>
 #include <iostream>
-#include <optional>
-
+#include <string>
 #include <random>
+#include <atomic>
+#include <chrono>
 
-#include <CLI/CLI.hpp>
-#include <ftxui/component/captured_mouse.hpp>// for ftxui
+#include <CLI/App.hpp>
+#include <CLI/Config.hpp>
+#include <CLI/Formatter.hpp>
+#include <fmt/core.h>// for print
+#include <fmt/format.h>// for format
+#include <ftxui/dom/elements.hpp>// for text, border
+#include <ftxui/dom/requirement.hpp>// for Requirement
+#include <ftxui/screen/screen.hpp>// for Screen
 #include <ftxui/component/component.hpp>// for Slider
 #include <ftxui/component/screen_interactive.hpp>// for ScreenInteractive
+#include <ftxui/screen/color.hpp>
 #include <spdlog/spdlog.h>
 
 #include <lefticus/tools/non_promoting_ints.hpp>
@@ -249,13 +259,15 @@ void game_iteration_canvas()
 
     switch (elapsed_time.count() % 3) {
     case 0:
-      small_bm_pixel.R += 11;// NOLINT Magic Number
+      small_bm_pixel.R = small_bm_pixel.R + static_cast<std::uint8_t>(11);// NOLINT Magic Number
       break;
     case 1:
-      small_bm_pixel.G += 11;// NOLINT Magic Number
+      small_bm_pixel.G = small_bm_pixel.R + static_cast<std::uint8_t>(11);// NOLINT Magic Number
       break;
     case 2:
-      small_bm_pixel.B += 11;// NOLINT Magic Number
+      small_bm_pixel.B = small_bm_pixel.R + static_cast<std::uint8_t>(11);// NOLINT Magic Number
+      break;
+    default:
       break;
     }
 
