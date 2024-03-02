@@ -89,7 +89,7 @@ jobs:
       - name: Windows - Test and coverage
         working-directory: ./build
         run: |
-          OpenCppCoverage.exe --export_type cobertura:coverage.xml --cover_children -- ctest --preset ${{matrix.preset}}
+          C:\Program Files\OpenCppCoverage\OpenCppCoverage.exe --export_type cobertura:coverage.xml --cover_children -- ctest --preset ${{matrix.preset}}
         shell: powershell
 
       - name: Publish to codecov
