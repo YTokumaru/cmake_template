@@ -1,7 +1,9 @@
+// cppcheck-suppress-file [uninitMemberVar, duplInheritedMember, duplInheritedMember, noExplicitConstructor]
 #include <catch2/catch_test_macros.hpp>
 
 #include <myproject/sample_library.hpp>
 
+// NOLINTBEGIN(cert-err58-cpp, cppcoreguidelines-avoid-do-while)
 TEST_CASE("Factorials are computed with constexpr", "[factorial]")
 {
   STATIC_REQUIRE(factorial_constexpr(0) == 1);
@@ -10,3 +12,4 @@ TEST_CASE("Factorials are computed with constexpr", "[factorial]")
   STATIC_REQUIRE(factorial_constexpr(3) == 6);
   STATIC_REQUIRE(factorial_constexpr(10) == 3628800);
 }
+// NOLINTEND(cert-err58-cpp, cppcoreguidelines-avoid-do-while)

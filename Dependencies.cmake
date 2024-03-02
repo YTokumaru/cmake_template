@@ -34,7 +34,7 @@ function(myproject_setup_dependencies)
       NAME
         Catch2
       VERSION
-        3.3.2
+        3.5.3
       GITHUB_REPOSITORY
         "catchorg/Catch2")
   endif()
@@ -56,7 +56,7 @@ function(myproject_setup_dependencies)
       GITHUB_REPOSITORY
         "ArthurSonzogni/FTXUI"
       GIT_TAG
-        "e23dbc7473654024852ede60e2121276c5aab660"
+        "v5.0.0"
       OPTIONS
         "FTXUI_BUILD_DOCS OFF"
         "FTXUI_BUILD_EXAMPLES OFF")
