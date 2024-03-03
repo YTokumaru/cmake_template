@@ -197,6 +197,34 @@
       }
     },
     {
+      "name": "test-windows-msvc-debug",
+      "displayName": "Strict",
+      "description": "Enable output and stop on failure",
+      "inherits": "test-common",
+      "configurePreset": "windows-msvc-debug"
+    },
+    {
+      "name": "test-windows-msvc-release",
+      "displayName": "Strict",
+      "description": "Enable output and stop on failure",
+      "inherits": "test-common",
+      "configurePreset": "windows-msvc-release"
+    },
+    {
+      "name": "test-windows-clang-debug",
+      "displayName": "Strict",
+      "description": "Enable output and stop on failure",
+      "inherits": "test-common",
+      "configurePreset": "windows-clang-debug"
+    },
+    {
+      "name": "test-windows-clang-release",
+      "displayName": "Strict",
+      "description": "Enable output and stop on failure",
+      "inherits": "test-common",
+      "configurePreset": "windows-clang-release"
+    },
+    {
       "name": "test-unixlike-gcc-debug",
       "displayName": "Strict",
       "description": "Enable output and stop on failure",
