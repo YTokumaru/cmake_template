@@ -104,7 +104,7 @@
       "cacheVariables": {
         "CMAKE_C_COMPILER": "clang-cl",
         "CMAKE_CXX_COMPILER": "clang-cl",
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+        "CMAKE_BUILD_TYPE": "Release"
       },
       "vendor": {
         "microsoft.com/VisualStudioSettings/CMake/1.0": {
@@ -162,25 +162,29 @@
       "name": "build-windows-msvc-debug",
       "description": "Build preset for Windows msvc debug configuration",
       "configurePreset": "windows-msvc-debug",
-      "verbose": true
+      "verbose": true,
+      "targets": "ALL_BUILD"
     },
     {
       "name": "build-windows-msvc-release",
       "description": "Build preset for Windows msvc release configuration",
       "configurePreset": "windows-msvc-release",
-      "verbose": true
+      "verbose": true,
+      "targets": "ALL_BUILD"
     },
     {
       "name": "build-windows-clang-debug",
       "description": "Build preset for Windows clang debug configuration",
       "configurePreset": "windows-clang-debug",
-      "verbose": true
+      "verbose": true,
+      "targets": "all"
     },
     {
       "name": "build-windows-clang-release",
       "description": "Build preset for Windows clang release configuration",
       "configurePreset": "windows-clang-release",
-      "verbose": true
+      "verbose": true,
+      "targets": "all"
     }
   ],
   "testPresets": [
@@ -201,28 +205,32 @@
       "displayName": "Strict",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
-      "configurePreset": "windows-msvc-debug"
+      "configurePreset": "windows-msvc-debug",
+      "configuration": "Debug"
     },
     {
       "name": "test-windows-msvc-release",
       "displayName": "Strict",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
-      "configurePreset": "windows-msvc-release"
+      "configurePreset": "windows-msvc-release",
+      "configuration": "Release"
     },
     {
       "name": "test-windows-clang-debug",
       "displayName": "Strict",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
-      "configurePreset": "windows-clang-debug"
+      "configurePreset": "windows-clang-debug",
+      "configuration": "Debug"
     },
     {
       "name": "test-windows-clang-release",
       "displayName": "Strict",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
-      "configurePreset": "windows-clang-release"
+      "configurePreset": "windows-clang-release",
+      "configuration": "Release"
     },
     {
       "name": "test-unixlike-gcc-debug",
