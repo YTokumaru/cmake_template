@@ -75,7 +75,7 @@ jobs:
         run: |
           Import-Module 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\Microsoft.VisualStudio.DevShell.dll'
           Enter-VsDevShell $(vswhere -latest -property instanceId) -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'
-          cmake -S . -B ./build --preset ${{matrix.preset}} -D${{ env.PROJECT_NAME }}_ENABLE_COVERAGE:BOOL=${{ contains(matrix.preset,'debug') }} -DGIT_SHA:STRING=${{ github.sha }}
+          cmake -S . --preset ${{matrix.preset}} -DGIT_SHA:STRING=${{ github.sha }}
         shell: powershell
 
       - name: Build
@@ -83,18 +83,25 @@ jobs:
         run: |
           Import-Module 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\Microsoft.VisualStudio.DevShell.dll'
           Enter-VsDevShell $(vswhere -latest -property instanceId) -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'
-          cmake --build ./build
+          cmake --build --preset ${{matrix.preset}}
         shell: powershell
 
-      - name: Windows - Test and coverage
-        working-directory: ./build
+      - name: Test
         run: |
-          & "C:\Program Files\OpenCppCoverage\OpenCppCoverage.exe" --export_type cobertura:coverage.xml --cover_children -- ctest --preset ${{matrix.preset}}
+          Import-Module 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\Microsoft.VisualStudio.DevShell.dll'
+          Enter-VsDevShell $(vswhere -latest -property instanceId) -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'
+          ctest --preset ${{matrix.preset}}
         shell: powershell
 
-      - name: Publish to codecov
-        uses: codecov/codecov-action@v2
-        with:
-          flags: ${{ runner.os }}
-          name: ${{ runner.os }}-coverage
-          files: ./build/coverage.xml
+      # - name: Windows - Test and coverage
+      #   working-directory: ./build
+      #   run: |
+      #     & "C:\Program Files\OpenCppCoverage\OpenCppCoverage.exe" --export_type cobertura:coverage.xml --cover_children -- ctest --preset ${{matrix.preset}}
+      #   shell: powershell
+
+      # - name: Publish to codecov
+      #   uses: codecov/codecov-action@v2
+      #   with:
+      #     flags: ${{ runner.os }}
+      #     name: ${{ runner.os }}-coverage
+      #     files: ./build/coverage.xml
