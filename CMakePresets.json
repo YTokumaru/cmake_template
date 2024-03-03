@@ -161,7 +161,6 @@
     {
       "name": "build-windows-msvc-debug",
       "description": "Build preset for Windows msvc debug configuration",
-      "hidden": true,
       "configurePreset": "windows-msvc-debug",
       "verbose": true,
       "targets": "ALL_BUILD"
@@ -192,6 +191,7 @@
     {
       "name": "test-common",
       "description": "Test CMake settings that apply to all configurations",
+      "hidden": true,
       "output": {
         "outputOnFailure": true
       },
