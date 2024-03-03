@@ -159,10 +159,27 @@
   ],
   "buildPresets": [
     {
-      "name": "build-windows-llvm-common",
-      "description": "Common build preset for Windows",
-      "hidden": true,
-      "configurePreset": "conf-windows-common",
+      "name": "build-windows-msvc-debug",
+      "description": "Build preset for Windows msvc debug configuration",
+      "configurePreset": "windows-msvc-debug",
+      "verbose": true
+    },
+    {
+      "name": "build-windows-msvc-release",
+      "description": "Build preset for Windows msvc release configuration",
+      "configurePreset": "windows-msvc-release",
+      "verbose": true
+    },
+    {
+      "name": "build-windows-clang-debug",
+      "description": "Build preset for Windows clang debug configuration",
+      "configurePreset": "windows-clang-debug",
+      "verbose": true
+    },
+    {
+      "name": "build-windows-clang-release",
+      "description": "Build preset for Windows clang release configuration",
+      "configurePreset": "windows-clang-release",
       "verbose": true
     }
   ],
