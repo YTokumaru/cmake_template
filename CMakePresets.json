@@ -32,8 +32,6 @@
         "strategy": "external"
       },
       "cacheVariables": {
-        "ENABLE_CPPCHECK_DEFAULT": "FALSE",
-        "ENABLE_CLANG_TIDY_DEFAULT": "FALSE"
       }
     },
     {
@@ -163,14 +161,16 @@
       "description": "Build preset for Windows msvc debug configuration",
       "configurePreset": "windows-msvc-debug",
       "verbose": true,
-      "targets": "ALL_BUILD"
+      "targets": "ALL_BUILD",
+      "configuration": "Debug"
     },
     {
       "name": "build-windows-msvc-release",
       "description": "Build preset for Windows msvc release configuration",
       "configurePreset": "windows-msvc-release",
       "verbose": true,
-      "targets": "ALL_BUILD"
+      "targets": "ALL_BUILD",
+      "configuration": "Release"
     },
     {
       "name": "build-windows-clang-debug",
