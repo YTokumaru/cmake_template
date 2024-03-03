@@ -161,6 +161,7 @@
     {
       "name": "build-windows-msvc-debug",
       "description": "Build preset for Windows msvc debug configuration",
+      "hidden": true,
       "configurePreset": "windows-msvc-debug",
       "verbose": true,
       "targets": "ALL_BUILD"
@@ -210,7 +211,8 @@
       "name": "test-windows-msvc-release",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
-      "configurePreset": "windows-msvc-release"
+      "configurePreset": "windows-msvc-release",
+      "configuration": "Release"
     },
     {
       "name": "test-windows-clang-debug",
