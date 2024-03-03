@@ -53,7 +53,7 @@
       "name": "conf-windows-llvm-common",
       "description": "Windows settings for MSBuild toolchain that apply to clang",
       "hidden": true,
-      "generator": "Ninja Multi-Config",
+      "generator": "Ninja",
       "inherits": "conf-windows-common",
       "cacheVariables": {
         "CMAKE_C_COMPILER": "clang-cl",

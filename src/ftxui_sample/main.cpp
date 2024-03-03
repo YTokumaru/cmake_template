@@ -14,6 +14,8 @@
 #include <optional>
 
 #include <CLI/App.hpp>
+#include <CLI/Formatter.hpp> // NOLINT
+#include <CLI/Config.hpp> // NOLINT
 #include <fmt/core.h>// for print
 #include <fmt/format.h>// for format
 #include <ftxui/dom/elements.hpp>// for text, border
@@ -24,7 +26,7 @@
 #include <ftxui/screen/color.hpp>
 #include <spdlog/spdlog.h>
 
-#include <lefticus/tools/non_promoting_ints.hpp>
+// #include <lefticus/tools/non_promoting_ints.hpp>
 
 // This file will be generated automatically when cur_you run the CMake
 // configuration step. It creates a namespace called `myproject`. You can modify
@@ -178,9 +180,9 @@ void consequence_game()
 
 struct Color
 {
-  lefticus::tools::uint_np8_t R{ static_cast<std::uint8_t>(0) };
-  lefticus::tools::uint_np8_t G{ static_cast<std::uint8_t>(0) };
-  lefticus::tools::uint_np8_t B{ static_cast<std::uint8_t>(0) };
+  std::uint8_t R{ 0 };
+  std::uint8_t G{ 0 };
+  std::uint8_t B{ 0 };
 };
 
 // A simple way of representing a bitmap on screen using only characters
@@ -207,8 +209,8 @@ struct Bitmap : ftxui::Node
         pixel.character = "▄";
         const auto &top_color = at(cur_x, cur_y * 2);
         const auto &bottom_color = at(cur_x, cur_y * 2 + 1);
-        pixel.background_color = ftxui::Color{ top_color.R.get(), top_color.G.get(), top_color.B.get() };
-        pixel.foreground_color = ftxui::Color{ bottom_color.R.get(), bottom_color.G.get(), bottom_color.B.get() };
+        pixel.background_color = ftxui::Color{ top_color.R, top_color.G, top_color.B };
+        pixel.foreground_color = ftxui::Color{ bottom_color.R, bottom_color.G, bottom_color.B };
       }
     }
   }
@@ -262,13 +264,13 @@ void game_iteration_canvas()
 
     switch (elapsed_time.count() % 3) {
     case 0:
-      small_bm_pixel.R = small_bm_pixel.R + static_cast<std::uint8_t>(11);// NOLINT Magic Number
+      small_bm_pixel.R += 11;// NOLINT Magic Number
       break;
     case 1:
-      small_bm_pixel.G = small_bm_pixel.R + static_cast<std::uint8_t>(11);// NOLINT Magic Number
+      small_bm_pixel.G += 11;// NOLINT Magic Number
       break;
     case 2:
-      small_bm_pixel.B = small_bm_pixel.R + static_cast<std::uint8_t>(11);// NOLINT Magic Number
+      small_bm_pixel.B += 11;// NOLINT Magic Number
       break;
     default:
       break;
