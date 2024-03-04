@@ -72,6 +72,10 @@ jobs:
       - name: Build
         # Execute the build.
         run: |
+          clang --version
+          clang++ --version
+          clang-tidy --version
+          llvm-cov --version
           cmake --build --preset build-${{matrix.preset}}
 
       - name: Test
