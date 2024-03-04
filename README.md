@@ -8,13 +8,6 @@
 
 This is a C++ Best Practices GitHub template for getting up and running with C++ quickly.
 
-TODO: Write about RelWithDebInfo build type
-TOFIX: On Windows, ENABLE_DEVELOPER_MODE, ENABLE_CPP_CHECK_DEFAULT, ENABLE_CLANG_TIDY_DEFAULT are not parsed by CMake?
-TODO: Write about options ${{ PROJECT_NAME }}\_PACKAGING_MAINTAINER_MODE ${{ PROJECT_NAME }}\_ENABLE_IPO
-TODO: Write about exporting configuration from Visual Studio
-TODO: Write about debugging cmake files using --trace, --trace-source and --trace-expand
-By default (collectively known as `ENABLE_DEVELOPER_MODE`)
-
 - Address Sanitizer and Undefined Behavior Sanitizer enabled where possible
 - Warnings as errors
 - clang-tidy and cppcheck static analysis
@@ -63,6 +56,15 @@ See [Catch2 tutorial](https://github.com/catchorg/Catch2/blob/master/docs/tutori
 ## Fuzz testing
 
 See [libFuzzer Tutorial](https://github.com/google/fuzzing/blob/master/tutorial/libFuzzerTutorial.md)
+
+## Project Options
+
+- ${{ PROJECT_NAME }}\_PACKAGING_MAINTAINER_MODE
+- ${{ PROJECT_NAME }}\_ENABLE_IPO
+
+## Debugging CMakefile
+
+Use options `--trace`, `--trace-source FILENAME`, `-trace-expand` when configuring cmake project to debug cmakefile
 
 ## Known Issues
 
