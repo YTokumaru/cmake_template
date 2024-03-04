@@ -102,6 +102,7 @@ jobs:
 
       - name: Publish to codecov
         uses: codecov/codecov-action@v4
+        if: ${{ contains(matrix.preset, 'debug') }}
         with:
           flags: ${{ runner.os }}
           name: ${{ runner.os }}-coverage
