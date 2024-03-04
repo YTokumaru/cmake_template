@@ -69,7 +69,7 @@ jobs:
       - name: Build
         # Execute the build.
         run: |
-          cmake --build --preset ${{matrix.preset}}
+          cmake --build --preset build-${{matrix.preset}}
 
       - name: Test
         # if: ${{ !contains(matrix.preset, 'debug') }}
