@@ -1,29 +1,29 @@
 #include <array>
-#include <functional>
-#include <string>
+#include <atomic>
+#include <chrono>
+#include <cstddef>
 #include <cstdint>
 #include <cstdlib>
-#include <cstddef>
-#include <vector>
-#include <utility>
-#include <thread>
-#include <random>
-#include <atomic>
 #include <exception>
-#include <chrono>
+#include <functional>
 #include <optional>
+#include <random>
+#include <string>
+#include <thread>
+#include <utility>
+#include <vector>
 
 #include <CLI/App.hpp>
-#include <CLI/Formatter.hpp> // NOLINT
-#include <CLI/Config.hpp> // NOLINT
+#include <CLI/Config.hpp>// NOLINT
+#include <CLI/Formatter.hpp>// NOLINT
 #include <fmt/core.h>// for print
 #include <fmt/format.h>// for format
-#include <ftxui/dom/elements.hpp>// for text, border
-#include <ftxui/dom/requirement.hpp>// for Requirement
-#include <ftxui/screen/screen.hpp>// for Screen
 #include <ftxui/component/component.hpp>// for Slider
 #include <ftxui/component/screen_interactive.hpp>// for ScreenInteractive
+#include <ftxui/dom/elements.hpp>// for text, border
+#include <ftxui/dom/requirement.hpp>// for Requirement
 #include <ftxui/screen/color.hpp>
+#include <ftxui/screen/screen.hpp>// for Screen
 #include <spdlog/spdlog.h>
 
 // This file will be generated automatically when cur_you run the CMake
