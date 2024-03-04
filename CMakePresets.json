@@ -163,6 +163,7 @@
   "buildPresets": [
     {
       "name": "build-windows-msvc-debug",
+      "displayName": "msvc Debug",
       "description": "Build preset for Windows msvc debug configuration",
       "configurePreset": "windows-msvc-debug",
       "verbose": true,
@@ -171,6 +172,7 @@
     },
     {
       "name": "build-windows-msvc-release",
+      "displayName": "msvc Release",
       "description": "Build preset for Windows msvc release configuration",
       "configurePreset": "windows-msvc-release",
       "verbose": true,
@@ -179,6 +181,7 @@
     },
     {
       "name": "build-windows-clang-debug",
+      "displayName": "clang Debug",
       "description": "Build preset for Windows clang debug configuration",
       "configurePreset": "windows-clang-debug",
       "verbose": true,
@@ -186,6 +189,7 @@
     },
     {
       "name": "build-windows-clang-release",
+      "displayName": "clang Release",
       "description": "Build preset for Windows clang release configuration",
       "configurePreset": "windows-clang-release",
       "verbose": true,
@@ -193,6 +197,7 @@
     },
     {
       "name": "build-unixlike-gcc-debug",
+      "displayName": "gcc Debug",
       "description": "Build preset for Unix-like gcc debug configuration",
       "configurePreset": "unixlike-gcc-debug",
       "verbose": true,
@@ -200,6 +205,7 @@
     },
     {
       "name": "build-unixlike-gcc-release",
+      "displayName": "gcc Release",
       "description": "Build preset for Unix-like gcc release configuration",
       "configurePreset": "unixlike-gcc-release",
       "verbose": true,
@@ -207,6 +213,7 @@
     },
     {
       "name": "build-unixlike-clang-debug",
+      "displayName": "clang Debug",
       "description": "Build preset for Unix-like clang debug configuration",
       "configurePreset": "unixlike-clang-debug",
       "verbose": true,
@@ -214,6 +221,7 @@
     },
     {
       "name": "build-unixlike-clang-release",
+      "displayName": "clang Release",
       "description": "Build preset for Unix-like clang release configuration",
       "configurePreset": "unixlike-clang-release",
       "verbose": true,
@@ -235,6 +243,7 @@
     },
     {
       "name": "test-windows-msvc-debug",
+      "displayName": "msvc Debug",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
       "configurePreset": "windows-msvc-debug",
@@ -242,6 +251,7 @@
     },
     {
       "name": "test-windows-msvc-release",
+      "displayName": "msvc Release",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
       "configurePreset": "windows-msvc-release",
@@ -249,6 +259,7 @@
     },
     {
       "name": "test-windows-clang-debug",
+      "displayName": "clang Debug",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
       "configurePreset": "windows-clang-debug",
@@ -256,6 +267,7 @@
     },
     {
       "name": "test-windows-clang-release",
+      "displayName": "clang Release",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
       "configurePreset": "windows-clang-release",
@@ -263,6 +275,7 @@
     },
     {
       "name": "test-unixlike-gcc-debug",
+      "displayName": "gcc Debug",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
       "configurePreset": "unixlike-gcc-debug",
@@ -270,6 +283,7 @@
     },
     {
       "name": "test-unixlike-gcc-release",
+      "displayName": "gcc Release",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
       "configurePreset": "unixlike-gcc-release",
@@ -277,6 +291,7 @@
     },
     {
       "name": "test-unixlike-clang-debug",
+      "displayName": "clang Debug",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
       "configurePreset": "unixlike-clang-debug",
@@ -284,6 +299,7 @@
     },
     {
       "name": "test-unixlike-clang-release",
+      "displayName": "clang Release",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
       "configurePreset": "unixlike-clang-release",
