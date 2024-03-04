@@ -58,6 +58,7 @@ jobs:
           choco install ccache
           choco install cppcheck
           choco install vswhere
+          choco install opencppcoverage
           Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
           refreshenv
         shell: powershell
@@ -84,17 +85,21 @@ jobs:
         shell: powershell
 
       - name: Test
+        if: ${{ !contains(matrix.preset, 'debug') }}
         run: |
           Import-Module $(vswhere -latest -products * -find **/Common7/Tools/Microsoft.VisualStudio.DevShell.dll)
           Enter-VsDevShell $(vswhere -latest -property instanceId) -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'
           ctest --preset test-${{matrix.preset}}
         shell: powershell
 
-      # - name: Windows - Test and coverage
-      #   working-directory: ./build
-      #   run: |
-      #     & "C:\Program Files\OpenCppCoverage\OpenCppCoverage.exe" --export_type cobertura:coverage.xml --cover_children -- ctest --preset ${{matrix.preset}}
-      #   shell: powershell
+      - name: Test & Coverage
+        if: ${{ contains(matrix.preset, 'debug') }}
+        run: |
+          Import-Module $(vswhere -latest -products * -find **/Common7/Tools/Microsoft.VisualStudio.DevShell.dll)
+          Enter-VsDevShell $(vswhere -latest -property instanceId) -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'
+          ctest --preset test-${{matrix.preset}}
+          OpenCppCoverage.exe --export_type cobertura:coverage.xml --cover_children --sources ${{ github.workspace }}\src --sources ${{ github.workspace }}\include -- ctest.exe --preset test-windows-msvc-debug
+        shell: powershell
 
       # - name: Publish to codecov
       #   uses: codecov/codecov-action@v2

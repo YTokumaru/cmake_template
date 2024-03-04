@@ -60,7 +60,8 @@
         "CMAKE_C_COMPILER": "clang-cl",
         "CMAKE_CXX_COMPILER": "clang-cl",
         "myproject_ENABLE_IPO": false,
-        "CMAKE_BUILD_TYPE": "Debug"
+        "CMAKE_BUILD_TYPE": "Debug",
+        "myproject_ENABLE_COVERAGE": "True"
       }
     },
     {
@@ -85,7 +86,8 @@
       "cacheVariables": {
         "CMAKE_C_COMPILER": "clang-cl",
         "CMAKE_CXX_COMPILER": "clang-cl",
-        "CMAKE_BUILD_TYPE": "Debug"
+        "CMAKE_BUILD_TYPE": "Debug",
+        "myproject_ENABLE_COVERAGE": "True"
       },
       "vendor": {
         "microsoft.com/VisualStudioSettings/CMake/1.0": {
