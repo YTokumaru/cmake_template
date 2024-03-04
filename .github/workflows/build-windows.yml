@@ -55,10 +55,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          choco install visualstudio2022buildtools --package-parameters "--config $env:GITHUB_WORKSPACE/.vsconfig"        
           choco install ccache
           choco install cppcheck
-          choco install opencppcoverage
           choco install vswhere
           Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
           refreshenv
@@ -70,26 +68,24 @@ jobs:
           echo $env:Path
         shell: powershell
 
-
+      
+      # TODO: Github action is using VS enterprize, which means that the path to devshell.dll might be different
       - name: Configure CMake
         run: |
-          Import-Module 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\Microsoft.VisualStudio.DevShell.dll'
-          Enter-VsDevShell $(vswhere -latest -property instanceId) -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'
+          & $(vswhere -latest -products * -find **/Common7/Tools/Launch-VsDevShell.ps1)
           cmake -S . --preset ${{matrix.preset}} -DGIT_SHA:STRING=${{ github.sha }}
         shell: powershell
 
       - name: Build
         # Execute the build.
         run: |
-          Import-Module 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\Microsoft.VisualStudio.DevShell.dll'
-          Enter-VsDevShell $(vswhere -latest -property instanceId) -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'
+          & $(vswhere -latest -products * -find **/Common7/Tools/Launch-VsDevShell.ps1)
           cmake --build --preset build-${{matrix.preset}}
         shell: powershell
 
       - name: Test
         run: |
-          Import-Module 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\Microsoft.VisualStudio.DevShell.dll'
-          Enter-VsDevShell $(vswhere -latest -property instanceId) -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'
+          & $(vswhere -latest -products * -find **/Common7/Tools/Launch-VsDevShell.ps1)
           ctest --preset test-${{matrix.preset}}
         shell: powershell
 
