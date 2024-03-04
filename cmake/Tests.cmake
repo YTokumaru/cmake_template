@@ -13,7 +13,6 @@ function(myproject_enable_coverage project_name)
         OUTPUT_STRIP_TRAILING_WHITESPACE
       )
       target_link_libraries(${project_name} INTERFACE "${LIB_INSTALL_DIR}")
-      # target_link_libraries(${project_name} INTERFACE "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\Llvm\\x64\\lib\\clang\\17\\lib\\windows\\clang_rt.profile-x86_64.lib")
     endif()
     target_compile_options(${project_name} INTERFACE --coverage)
     target_link_libraries(${project_name} INTERFACE --coverage)

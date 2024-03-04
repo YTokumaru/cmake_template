@@ -10,9 +10,6 @@ function(target_include_system_directories target)
 
   foreach(scope IN ITEMS INTERFACE PUBLIC PRIVATE)
     foreach(lib_include_dirs IN LISTS ARG_${scope})
-        # system includes do not work in MSVC
-        # awaiting https://gitlab.kitware.com/cmake/cmake/-/issues/18272#
-        # awaiting https://gitlab.kitware.com/cmake/cmake/-/issues/17904
       if(${scope} STREQUAL "INTERFACE" OR ${scope} STREQUAL "PUBLIC")
         target_include_directories(
           ${target}

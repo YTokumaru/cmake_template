@@ -37,6 +37,7 @@ target_link_libraries(
           myproject::myproject_options
           myproject::sample_library)
 target_link_system_libraries(tests PRIVATE Catch2::Catch2WithMain)
+# Cppcheck and clang-tidy are disabled for tests
 set_target_properties(tests PROPERTIES CXX_CPPCHECK "")
 set_target_properties(tests PROPERTIES CXX_CLANG_TIDY "")
 

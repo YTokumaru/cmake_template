@@ -26,8 +26,6 @@
 #include <ftxui/screen/color.hpp>
 #include <spdlog/spdlog.h>
 
-// #include <lefticus/tools/non_promoting_ints.hpp>
-
 // This file will be generated automatically when cur_you run the CMake
 // configuration step. It creates a namespace called `myproject`. You can modify
 // the source template at `configured_files/config.hpp.in`.

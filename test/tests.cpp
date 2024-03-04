@@ -1,9 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-
 #include <myproject/sample_library.hpp>
-
-// FIXME: The macro here gets expanded and causes clang-tidy and cppcheck warnings
 
 TEST_CASE("Factorials are computed", "[factorial]")
 {
