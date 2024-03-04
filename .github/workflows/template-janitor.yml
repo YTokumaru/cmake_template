@@ -198,6 +198,7 @@ jobs:
       # Rename all cpp_starter_project occurrences to current repository and remove this workflow
       - name: Update repository to match new template information
         run: |
+          # TODO: change the url of codecov to the new repository
           # Update the README and template files to match the new org / repository names 
           sed -i "s|${{ env.TEMPLATE_REPOSITORY }}|${{ env.NEW_REPOSITORY }}|g" README.md ${{ env.TEMPLATES_PATH }}/template_repository
           sed -i "s|${{ env.TEMPLATE_NAME }}|${{ env.NEW_PROJECT }}|g" README.md ${{ env.TEMPLATES_PATH }}/template_name

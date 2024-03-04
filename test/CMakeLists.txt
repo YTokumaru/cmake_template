@@ -32,10 +32,14 @@ set_tests_properties(cli.version_matches PROPERTIES PASS_REGULAR_EXPRESSION "${P
 add_executable(tests tests.cpp)
 target_link_libraries(
   tests
-  PRIVATE myproject::myproject_warnings
+  PRIVATE 
+          myproject::myproject_warnings
           myproject::myproject_options
-          myproject::sample_library
-          Catch2::Catch2WithMain)
+          myproject::sample_library)
+target_link_system_libraries(tests PRIVATE Catch2::Catch2WithMain)
+# Cppcheck and clang-tidy are disabled for tests
+set_target_properties(tests PROPERTIES CXX_CPPCHECK "")
+set_target_properties(tests PROPERTIES CXX_CLANG_TIDY "")
 
 if(WIN32 AND BUILD_SHARED_LIBS)
   add_custom_command(
@@ -64,10 +68,13 @@ catch_discover_tests(
 add_executable(constexpr_tests constexpr_tests.cpp)
 target_link_libraries(
   constexpr_tests
-  PRIVATE myproject::myproject_warnings
+  PRIVATE 
+          myproject::myproject_warnings
           myproject::myproject_options
-          myproject::sample_library
-          Catch2::Catch2WithMain)
+          myproject::sample_library)
+target_link_system_libraries(constexpr_tests PRIVATE Catch2::Catch2WithMain)
+set_target_properties(constexpr_tests PROPERTIES CXX_CPPCHECK "")
+set_target_properties(constexpr_tests PROPERTIES CXX_CLANG_TIDY "")
 
 catch_discover_tests(
   constexpr_tests
@@ -89,9 +96,11 @@ target_link_libraries(
   relaxed_constexpr_tests
   PRIVATE myproject::myproject_warnings
           myproject::myproject_options
-          myproject::sample_library
-          Catch2::Catch2WithMain)
+          myproject::sample_library)
+target_link_system_libraries(relaxed_constexpr_tests PRIVATE Catch2::Catch2WithMain)
 target_compile_definitions(relaxed_constexpr_tests PRIVATE -DCATCH_CONFIG_RUNTIME_STATIC_REQUIRE)
+set_target_properties(relaxed_constexpr_tests PROPERTIES CXX_CPPCHECK "")
+set_target_properties(relaxed_constexpr_tests PROPERTIES CXX_CLANG_TIDY "")
 
 catch_discover_tests(
   relaxed_constexpr_tests
