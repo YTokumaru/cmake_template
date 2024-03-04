@@ -48,11 +48,6 @@ jobs:
         with:
           envFile: ".github/constants.env"
 
-      - name: (Debug) Print Path
-        run: |
-          echo $env:Path
-        shell: powershell
-
       - name: Install dependencies
         run: |
           choco install ccache
@@ -61,12 +56,6 @@ jobs:
           choco install opencppcoverage
           Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
           refreshenv
-        shell: powershell
-
-        
-      - name: (Debug) Print Path
-        run: |
-          echo $env:Path
         shell: powershell
 
       - name: Configure CMake
