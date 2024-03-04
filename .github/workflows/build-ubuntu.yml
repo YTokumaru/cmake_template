@@ -61,6 +61,8 @@ jobs:
           sudo apt-get install -y g++-12
           sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 100
           sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 100
+          sudo update-alternatives --remove clang /usr/bin/clang-14 || true
+          sudo update-alternatives --remove clang++ /usr/bin/clang++-14 || true
           sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-15 100
           sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-15 100
           sudo update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-15 100
