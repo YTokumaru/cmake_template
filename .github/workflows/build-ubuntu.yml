@@ -54,21 +54,7 @@ jobs:
           sudo apt-get install -y cmake
           sudo apt-get install -y ninja-build
           sudo apt-get install -y cppcheck
-          sudo apt-get install -y clang
-          sudo apt-get install -y clang-15
-          sudo apt-get install -y llvm-15
-          sudo apt-get install -y gcc-12
-          sudo apt-get install -y g++-12
-          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 100
-          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 100
-          sudo update-alternatives --remove clang /usr/bin/clang-14 || true
-          sudo update-alternatives --remove clang++ /usr/bin/clang++-14 || true
-          sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-15 100
-          sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-15 100
-          sudo update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-15 100
-          sudo update-alternatives --install /usr/bin/llvm-cov llvm-cov /usr/bin/llvm-cov-15 100
-          sudo update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-15 100
-          sudo update-alternatives --install /usr/bin/llvm-config llvm-config /usr/bin/llvm-config-15 100
+          sudo apt-get install -y ccache
 
       - name: Configure CMake
         run: |

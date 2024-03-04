@@ -1,4 +1,5 @@
 # cmake_template
+
 [![build(Windows)](https://github.com/YTokumaru/cmake_template/actions/workflows/build-windows.yml/badge.svg)](https://github.com/YTokumaru/cmake_template/actions/workflows/build-windows.yml)
 [![codecov](https://codecov.io/gh/YTokumaru/cmake_template/graph/badge.svg?token=OUBFIJTUCP)](https://codecov.io/gh/YTokumaru/cmake_template)
 [![CodeQL](https://github.com/YTokumaru/cmake_template/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/YTokumaru/cmake_template/actions/workflows/codeql-analysis.yml)
@@ -68,3 +69,4 @@ Use options `--trace`, `--trace-source FILENAME`, `-trace-expand` when configuri
 ## Known Issues
 
 - Testing framework heavily uses macros, and is difficult to configure static analysis on the test files (It checks the expanded `#define` and outputs errors). Therefore, `cppcheck` and `clang-tidy` has deliberately been turn off for testing targets. CMake 2.27 seems to support the feature `SKIP_LINTING` which could help solve the issue in a more elegant way, but since cmake 2.27 is not widely distributed through `apt`, target compile properties has been modified in `tests/CMakeLists.txt`
+- Due to the issue where [ubuntu-latest runners have an incompatible combination of clang and libstdc++](https://github.com/actions/runner-images/issues/8659), so disabling linux CI until this is fixed
