@@ -53,14 +53,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y cmake
           sudo apt-get install -y ninja-build
+          sudo apt-get install -y cppcheck
           sudo apt-get install -y clang-15
           sudo apt-get install -y llvm-15
-          wget https://raw.githubusercontent.com/ShangjinTang/dotfiles/05ef87daae29475244c276db5d406b58c52be445/linux/ubuntu/22.04/bin/update-alternatives-clang
-          sudo bash ./update-alternatives-clang
           sudo apt-get install -y gcc-12
           sudo apt-get install -y g++-12
-          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 100
-          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 100
 
       - name: Configure CMake
         run: |
