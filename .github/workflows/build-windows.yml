@@ -67,9 +67,7 @@ jobs:
         run: |
           echo $env:Path
         shell: powershell
-
       
-      # TODO: Github action is using VS enterprize, which means that the path to devshell.dll might be different
       - name: Configure CMake
         run: |
           & $(vswhere -latest -products * -find **/Common7/Tools/Launch-VsDevShell.ps1)
