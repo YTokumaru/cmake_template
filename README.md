@@ -1,6 +1,7 @@
 # cmake_template
 
 [![build(Windows)](https://github.com/YTokumaru/cmake_template/actions/workflows/build-windows.yml/badge.svg)](https://github.com/YTokumaru/cmake_template/actions/workflows/build-windows.yml)
+[![build(Ubuntu)](https://github.com/YTokumaru/cmake_template/actions/workflows/build-ubuntu.yml/badge.svg)](https://github.com/YTokumaru/cmake_template/actions/workflows/build-ubuntu.yml)
 [![codecov](https://codecov.io/gh/YTokumaru/cmake_template/graph/badge.svg?token=OUBFIJTUCP)](https://codecov.io/gh/YTokumaru/cmake_template)
 [![CodeQL](https://github.com/YTokumaru/cmake_template/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/YTokumaru/cmake_template/actions/workflows/codeql-analysis.yml)
 
