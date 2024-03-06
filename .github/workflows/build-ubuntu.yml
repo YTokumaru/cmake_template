@@ -48,13 +48,29 @@ jobs:
         with:
           envFile: ".github/constants.env"
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y cmake
-          sudo apt-get install -y ninja-build
-          sudo apt-get install -y cppcheck
-          sudo apt-get install -y ccache
+      - name: Setup Cpp
+        if: ${{ contains(matrix.preset, 'clang') }}
+        uses: aminya/setup-cpp@v1
+        with:
+          compiler: llvm-14
+          cmake: true
+          ninja: true
+          vcpkg: true
+          cppcheck: true
+          ccache: true
+          clangtidy: 14
+
+      - name: Setup Cpp
+        if: ${{ contains(matrix.preset, 'gcc') }}
+        uses: aminya/setup-cpp@v1
+        with:
+          compiler: gcc-11
+          cmake: true
+          ninja: true
+          vcpkg: true
+          cppcheck: true
+          ccache: true
+          clangtidy: true
 
       - name: Configure CMake
         run: |
