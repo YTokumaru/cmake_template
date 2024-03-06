@@ -90,13 +90,19 @@ jobs:
         run: |
           ctest --preset test-${{matrix.preset}}
 
-      # - name: Test & Coverage
-      #   if: ${{ contains(matrix.preset, 'debug') }}
-      #   run: |
-      #     Import-Module $(vswhere -latest -products * -find **/Common7/Tools/Microsoft.VisualStudio.DevShell.dll)
-      #     Enter-VsDevShell $(vswhere -latest -property instanceId) -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'
-      #     & "C:\Program Files\OpenCppCoverage\OpenCppCoverage.exe" --export_type cobertura:coverage.xml --cover_children --sources ${{ github.workspace }}\src --sources ${{ github.workspace }}\include -- ctest.exe --preset test-${{matrix.preset}}
-      #   shell: powershell
+      - name: Test & Coverage
+        if: ${{ contains(matrix.preset, 'debug') && contains(matrix.preset, 'clang') }}
+        run: |
+          ctest --preset test-${{matrix.preset}}
+          cd out/build/${{matrix.preset}}/
+          gcovr --delete --root ../../../ --print-summary --xml-pretty --xml ../../../coverage.xml . --gcov-executable "llvm-cov-15 gcov"
+
+      - name: Test & Coverage
+        if: ${{ contains(matrix.preset, 'debug') && contains(matrix.preset, 'gcc') }}
+        run: |
+          ctest --preset test-${{matrix.preset}}
+          cd out/build/${{matrix.preset}}/
+          gcovr --delete --root ../../../ --print-summary --xml-pretty --xml ../../../coverage.xml . --gcov-executable "gcov"
 
       # - name: Publish to codecov
       #   uses: codecov/codecov-action@v4
