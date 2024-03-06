@@ -104,7 +104,7 @@ jobs:
         run: |
           ctest --preset test-${{matrix.preset}}
           cd out/build/${{matrix.preset}}/
-          gcovr --delete --root ../../../ --print-summary --xml-pretty --xml ../../../coverage.xml . --gcov-executable "gcov"
+          gcovr --delete --root ../../../ --filter ../../../src --filter ../../../include --print-summary --xml-pretty --xml ../../../coverage.xml . --gcov-executable "gcov"
 
       - name: Publish to codecov
         uses: codecov/codecov-action@v4
