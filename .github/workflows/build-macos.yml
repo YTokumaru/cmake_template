@@ -47,6 +47,7 @@ jobs:
           brew install gcovr
           brew install cppcheck
           brew install ccache
+          brew install ninja
 
       - name: Get project name
         uses: cardinalby/export-env-action@v2
