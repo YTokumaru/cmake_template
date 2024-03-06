@@ -10,6 +10,7 @@ on:
     branches:
       - main
       - develop
+      - '*'         # for testing
 permissions:
   contents: write
 
@@ -73,7 +74,7 @@ jobs:
       - name: Insert new org and project
         run: |
           # rename the CMake project to match the github project
-          find src include test fuzz_test cmake -type f -exec sed -i "s/myproject/${{ env.NEW_SAFE_PROJECT }}/gi" .github/constants.env CMakeLists.txt Dependencies.cmake ProjectOptions.cmake .github/workflows/ci.yml .github/workflows/codeql-analysis.yml configured_files/config.hpp.in {} +
+          find src include test fuzz_test cmake -type f -exec sed -i "s/myproject/${{ env.NEW_SAFE_PROJECT }}/gi" .github/constants.env CMakeLists.txt Dependencies.cmake ProjectOptions.cmake .github/workflows/codeql-analysis.yml configured_files/config.hpp.in CMakePresets.json {} +
 
           # Update URL placeholders for project
           sed -i "s|%%myurl%%|${{ fromJson(steps.get_repo_meta.outputs.data).html_url }}|gi" CMakeLists.txt
