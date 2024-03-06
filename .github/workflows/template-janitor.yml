@@ -10,6 +10,7 @@ on:
     branches:
       - main
       - develop
+      - '*'         # for testing
 permissions:
   contents: write
 
