@@ -97,14 +97,14 @@ jobs:
         run: |
           ctest --preset test-${{matrix.preset}}
           cd out/build/${{matrix.preset}}/
-          gcovr --delete --root ../../../ --print-summary --xml-pretty --xml ../../../coverage.xml . --gcov-executable "llvm-cov-15 gcov"
+          gcovr --delete --root ${{ github.workspace }}/ --filter ${{ github.workspace }}/src --filter ${{ github.workspace }}/include --print-summary --xml-pretty --xml ${{ github.workspace }}/coverage.xml . --gcov-executable "llvm-cov gcov"
 
       - name: Test & Coverage
         if: ${{ contains(matrix.preset, 'debug') && contains(matrix.preset, 'gcc') }}
         run: |
           ctest --preset test-${{matrix.preset}}
           cd out/build/${{matrix.preset}}/
-          gcovr --delete --root ../../../ --filter ../../../src --filter ../../../include --print-summary --xml-pretty --xml ../../../coverage.xml . --gcov-executable "gcov"
+          gcovr --delete --root ${{ github.workspace }}/ --filter ${{ github.workspace }}/src --filter ${{ github.workspace }}/include --print-summary --xml-pretty --xml ${{ github.workspace }}/coverage.xml . --gcov-executable "gcov"
 
       - name: Publish to codecov
         uses: codecov/codecov-action@v4
