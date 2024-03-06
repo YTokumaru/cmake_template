@@ -65,19 +65,19 @@ jobs:
       - name: Test
         if: ${{ !contains(matrix.preset, 'debug') }}
         run: |
-          ctest --preset test/.*-${{matrix.preset}}
+          ctest --preset test-${{matrix.preset}}
 
       - name: Test & Coverage
         if: ${{ contains(matrix.preset, 'debug') && contains(matrix.preset, 'clang') }}
         run: |
-          ctest --preset test/.*-${{matrix.preset}}
+          ctest --preset test-${{matrix.preset}}
           cd out/build/${{matrix.preset}}/
           gcovr --delete --root ${{ github.workspace }}/ --filter ${{ github.workspace }}/src --filter ${{ github.workspace }}/include --exclude ${{ github.workspace }}/test/.* --print-summary --xml-pretty --xml ${{ github.workspace }}/coverage.xml . --gcov-executable "xcrun llvm-cov gcov"
 
       - name: Test & Coverage
         if: ${{ contains(matrix.preset, 'debug') && contains(matrix.preset, 'gcc') }}
         run: |
-          ctest --preset test/.*-${{matrix.preset}}
+          ctest --preset test-${{matrix.preset}}
           cd out/build/${{matrix.preset}}/
           gcovr --delete --root ${{ github.workspace }}/ --filter ${{ github.workspace }}/src --filter ${{ github.workspace }}/include --exclude ${{ github.workspace }}/test/.* --print-summary --xml-pretty --xml ${{ github.workspace }}/coverage.xml . --gcov-executable "gcov"
 
