@@ -86,7 +86,7 @@ jobs:
           cmake --build --preset build-${{matrix.preset}}
 
       - name: Test
-        # if: ${{ !contains(matrix.preset, 'debug') }}
+        if: ${{ !contains(matrix.preset, 'debug') }}
         run: |
           ctest --preset test-${{matrix.preset}}
 
