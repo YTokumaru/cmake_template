@@ -59,6 +59,7 @@ jobs:
           cppcheck: true
           ccache: true
           clangtidy: 15
+          gcovr: true
 
       - name: Setup Cpp
         if: ${{ contains(matrix.preset, 'gcc') }}
@@ -105,12 +106,12 @@ jobs:
           cd out/build/${{matrix.preset}}/
           gcovr --delete --root ../../../ --print-summary --xml-pretty --xml ../../../coverage.xml . --gcov-executable "gcov"
 
-      # - name: Publish to codecov
-      #   uses: codecov/codecov-action@v4
-      #   if: ${{ contains(matrix.preset, 'debug') }}
-      #   with:
-      #     flags: ${{ runner.os }}
-      #     name: ${{ runner.os }}-coverage
-      #     files: ./coverage.xml
-      #     token: ${{ secrets.CODECOV_TOKEN }}
-      #     verbose: true
+      - name: Publish to codecov
+        uses: codecov/codecov-action@v4
+        if: ${{ contains(matrix.preset, 'debug') }}
+        with:
+          flags: ${{ runner.os }}
+          name: ${{ runner.os }}-coverage
+          files: ./coverage.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true
