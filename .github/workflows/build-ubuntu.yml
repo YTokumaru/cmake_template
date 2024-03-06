@@ -71,6 +71,7 @@ jobs:
           cppcheck: true
           ccache: true
           clangtidy: true
+          gcovr: true
 
       - name: Configure CMake
         run: |
