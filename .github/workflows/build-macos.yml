@@ -45,7 +45,7 @@ jobs:
       - name: Setup Environment
         run: |
           brew install gcovr
-          brew install cppckeck
+          brew install cppcheck
           brew install ccache
 
       - name: Get project name
