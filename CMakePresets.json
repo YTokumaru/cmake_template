@@ -31,8 +31,7 @@
         "value": "host=x64",
         "strategy": "external"
       },
-      "cacheVariables": {
-      }
+      "cacheVariables": {}
     },
     {
       "name": "conf-unixlike-common",
@@ -117,10 +116,12 @@
       "displayName": "gcc Debug",
       "description": "Target Unix-like OS with the gcc compiler, debug build type",
       "inherits": "conf-unixlike-common",
+      "generator": "Ninja",
       "cacheVariables": {
         "CMAKE_C_COMPILER": "gcc",
         "CMAKE_CXX_COMPILER": "g++",
-        "CMAKE_BUILD_TYPE": "Debug"
+        "CMAKE_BUILD_TYPE": "Debug",
+        "myproject_ENABLE_COVERAGE": "True"
       }
     },
     {
@@ -128,10 +129,11 @@
       "displayName": "gcc Release",
       "description": "Target Unix-like OS with the gcc compiler, release build type",
       "inherits": "conf-unixlike-common",
+      "generator": "Ninja",
       "cacheVariables": {
         "CMAKE_C_COMPILER": "gcc",
         "CMAKE_CXX_COMPILER": "g++",
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+        "CMAKE_BUILD_TYPE": "Release"
       }
     },
     {
@@ -139,10 +141,12 @@
       "displayName": "clang Debug",
       "description": "Target Unix-like OS with the clang compiler, debug build type",
       "inherits": "conf-unixlike-common",
+      "generator": "Ninja",
       "cacheVariables": {
         "CMAKE_C_COMPILER": "clang",
         "CMAKE_CXX_COMPILER": "clang++",
-        "CMAKE_BUILD_TYPE": "Debug"
+        "CMAKE_BUILD_TYPE": "Debug",
+        "myproject_ENABLE_COVERAGE": "True"
       }
     },
     {
@@ -150,16 +154,18 @@
       "displayName": "clang Release",
       "description": "Target Unix-like OS with the clang compiler, release build type",
       "inherits": "conf-unixlike-common",
+      "generator": "Ninja",
       "cacheVariables": {
         "CMAKE_C_COMPILER": "clang",
         "CMAKE_CXX_COMPILER": "clang++",
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+        "CMAKE_BUILD_TYPE": "Release"
       }
     }
   ],
   "buildPresets": [
     {
       "name": "build-windows-msvc-debug",
+      "displayName": "msvc Debug",
       "description": "Build preset for Windows msvc debug configuration",
       "configurePreset": "windows-msvc-debug",
       "verbose": true,
@@ -168,6 +174,7 @@
     },
     {
       "name": "build-windows-msvc-release",
+      "displayName": "msvc Release",
       "description": "Build preset for Windows msvc release configuration",
       "configurePreset": "windows-msvc-release",
       "verbose": true,
@@ -176,6 +183,7 @@
     },
     {
       "name": "build-windows-clang-debug",
+      "displayName": "clang Debug",
       "description": "Build preset for Windows clang debug configuration",
       "configurePreset": "windows-clang-debug",
       "verbose": true,
@@ -183,8 +191,41 @@
     },
     {
       "name": "build-windows-clang-release",
+      "displayName": "clang Release",
       "description": "Build preset for Windows clang release configuration",
       "configurePreset": "windows-clang-release",
+      "verbose": true,
+      "targets": "all"
+    },
+    {
+      "name": "build-unixlike-gcc-debug",
+      "displayName": "gcc Debug",
+      "description": "Build preset for Unix-like gcc debug configuration",
+      "configurePreset": "unixlike-gcc-debug",
+      "verbose": true,
+      "targets": "all"
+    },
+    {
+      "name": "build-unixlike-gcc-release",
+      "displayName": "gcc Release",
+      "description": "Build preset for Unix-like gcc release configuration",
+      "configurePreset": "unixlike-gcc-release",
+      "verbose": true,
+      "targets": "all"
+    },
+    {
+      "name": "build-unixlike-clang-debug",
+      "displayName": "clang Debug",
+      "description": "Build preset for Unix-like clang debug configuration",
+      "configurePreset": "unixlike-clang-debug",
+      "verbose": true,
+      "targets": "all"
+    },
+    {
+      "name": "build-unixlike-clang-release",
+      "displayName": "clang Release",
+      "description": "Build preset for Unix-like clang release configuration",
+      "configurePreset": "unixlike-clang-release",
       "verbose": true,
       "targets": "all"
     }
@@ -204,6 +245,7 @@
     },
     {
       "name": "test-windows-msvc-debug",
+      "displayName": "msvc Debug",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
       "configurePreset": "windows-msvc-debug",
@@ -211,6 +253,7 @@
     },
     {
       "name": "test-windows-msvc-release",
+      "displayName": "msvc Release",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
       "configurePreset": "windows-msvc-release",
@@ -218,6 +261,7 @@
     },
     {
       "name": "test-windows-clang-debug",
+      "displayName": "clang Debug",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
       "configurePreset": "windows-clang-debug",
@@ -225,6 +269,7 @@
     },
     {
       "name": "test-windows-clang-release",
+      "displayName": "clang Release",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
       "configurePreset": "windows-clang-release",
@@ -232,31 +277,35 @@
     },
     {
       "name": "test-unixlike-gcc-debug",
-      "displayName": "Strict",
+      "displayName": "gcc Debug",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
-      "configurePreset": "unixlike-gcc-debug"
+      "configurePreset": "unixlike-gcc-debug",
+      "configuration": "Debug"
     },
     {
       "name": "test-unixlike-gcc-release",
-      "displayName": "Strict",
+      "displayName": "gcc Release",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
-      "configurePreset": "unixlike-gcc-release"
+      "configurePreset": "unixlike-gcc-release",
+      "configuration": "Release"
     },
     {
       "name": "test-unixlike-clang-debug",
-      "displayName": "Strict",
+      "displayName": "clang Debug",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
-      "configurePreset": "unixlike-clang-debug"
+      "configurePreset": "unixlike-clang-debug",
+      "configuration": "Debug"
     },
     {
       "name": "test-unixlike-clang-release",
-      "displayName": "Strict",
+      "displayName": "clang Release",
       "description": "Enable output and stop on failure",
       "inherits": "test-common",
-      "configurePreset": "unixlike-clang-release"
+      "configurePreset": "unixlike-clang-release",
+      "configuration": "Release"
     }
   ]
 }
