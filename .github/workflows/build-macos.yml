@@ -72,7 +72,7 @@ jobs:
         run: |
           ctest --preset test-${{matrix.preset}}
           cd out/build/${{matrix.preset}}/
-          gcovr --delete --root ../../../ --print-summary --xml-pretty --xml ../../../coverage.xml . --gcov-executable "llvm-cov-15 gcov"
+          gcovr --delete --root ../../../ --print-summary --xml-pretty --xml ../../../coverage.xml . --gcov-executable "llvm-cov gcov"
 
       - name: Test & Coverage
         if: ${{ contains(matrix.preset, 'debug') && contains(matrix.preset, 'gcc') }}
