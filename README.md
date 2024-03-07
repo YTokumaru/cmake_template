@@ -43,6 +43,11 @@ Now you can clone the project locally and get to work!
 
     git clone https://github.com/<user>/<your_new_repo>.git
 
+### Add your codecov token
+
+To enable codecov, you need to add your codecov token to the repository secrets as `CODECOV_TOKEN`.
+You may also want to create a badge for codecov and add it to the README.
+
 ### Setting up the dependencies
 
 #### Windows
