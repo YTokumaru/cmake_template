@@ -1,12 +1,12 @@
 # CMake Template
 
-[![build(Windows)](https://github.com/YTokumaru/cmake_template/actions/workflows/build-windows.yml/badge.svg)](https://github.com/YTokumaru/cmake_template/actions/workflows/build-windows.yml)
-[![build(Ubuntu)](https://github.com/YTokumaru/cmake_template/actions/workflows/build-ubuntu.yml/badge.svg)](https://github.com/YTokumaru/cmake_template/actions/workflows/build-ubuntu.yml)
-[![build(MacOS)](https://github.com/YTokumaru/cmake_template/actions/workflows/build-macos.yml/badge.svg)](https://github.com/YTokumaru/cmake_template/actions/workflows/build-macos.yml)
-[![codecov](https://codecov.io/gh/YTokumaru/cmake_template/graph/badge.svg?token=OUBFIJTUCP)](https://codecov.io/gh/YTokumaru/cmake_template)
-[![CodeQL](https://github.com/YTokumaru/cmake_template/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/YTokumaru/cmake_template/actions/workflows/codeql-analysis.yml)
+[![build(Windows)](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/build-windows.yml/badge.svg)](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/build-windows.yml)
+[![build(Ubuntu)](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/build-ubuntu.yml/badge.svg)](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/build-ubuntu.yml)
+[![build(MacOS)](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/build-macos.yml/badge.svg)](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/build-macos.yml)
+[![codecov](https://codecov.io/gh/YTokumaru/cpp-project-kickstarter/graph/badge.svg?token=OUBFIJTUCP)](https://codecov.io/gh/YTokumaru/cpp-project-kickstarter)
+[![CodeQL](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/codeql-analysis.yml)
 
-## About CMake Template
+## About C++ Project Kickstarter
 
 This is a CMake project template to get you started with modern C++ project. Works on Windows, Linux, and MacOS.
 This project aims to work seemlessly on major operating systems and without a lengthy setup process. Just install the dependencies through default package manager and you are good to go 🚀!
@@ -31,7 +31,7 @@ The initial project includes:
 ### Use the Github template
 
 First, click the green `Use this template` button near the top of this page.
-This will take you to Github's ['Generate Repository'](https://github.com/cpp-best-practices/cmake_template/generate) page.
+This will take you to Github's ['Generate Repository'](https://github.com/ytokumaru/cpp-project-kickstarter/generate) page.
 Fill in a repository name and short description, and click 'Create repository from template'.
 This will allow you to create a new repository in your Github account,
 prepopulated with the contents of this project.
@@ -128,7 +128,7 @@ Use options `--trace`, `--trace-source FILENAME`, `-trace-expand` when configuri
 ### Known Issues
 
 - Testing framework heavily uses macros, and is difficult to configure static analysis on the test files (It checks the expanded `#define` and outputs errors). Therefore, `cppcheck` and `clang-tidy` has deliberately been turn off for testing targets. CMake 2.27 seems to support the feature `SKIP_LINTING` which could help solve the issue in a more elegant way, but since cmake 2.27 is not widely distributed through `apt`, target compile properties has been modified in `tests/CMakeLists.txt`
-- Due to the issue where [ubuntu-latest runners have an incompatible combination of clang and libstdc++](https://github.com/actions/runner-images/issues/8659), so disabling linux CI until this is fixed
+- Due to the issue where [ubuntu-latest runners have an incompatible combination of clang and libstdc++](https://github.com/actions/runner-images/issues/8659), so using github action to setup the environment. When the issue is fixed, The code should compile without any configuration.
 
 ### Still having issues?
 Open a new issue and we will help you out!
