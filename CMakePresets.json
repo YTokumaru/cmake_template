@@ -56,8 +56,8 @@
       "inherits": "conf-windows-common",
       "generator": "Visual Studio 17 2022",
       "cacheVariables": {
-        "CMAKE_C_COMPILER": "clang-cl",
-        "CMAKE_CXX_COMPILER": "clang-cl",
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl",
         "myproject_ENABLE_IPO": false,
         "CMAKE_BUILD_TYPE": "Debug",
         "myproject_ENABLE_COVERAGE": "True"
@@ -70,8 +70,8 @@
       "inherits": "conf-windows-common",
       "generator": "Visual Studio 17 2022",
       "cacheVariables": {
-        "CMAKE_C_COMPILER": "clang-cl",
-        "CMAKE_CXX_COMPILER": "clang-cl",
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl",
         "myproject_ENABLE_IPO": false,
         "CMAKE_BUILD_TYPE": "Release"
       }
