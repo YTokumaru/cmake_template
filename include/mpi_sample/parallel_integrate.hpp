@@ -9,7 +9,7 @@ namespace mpi = boost::mpi;
 namespace parallel {
 /**
  * @brief Integrate a function using the trapezoidal rule in parallel.
- * 
+ *
  * @param world The MPI communicator.
  * @param func The function to integrate.
  * @param start The start of the interval.
@@ -17,7 +17,11 @@ namespace parallel {
  * @param num The number of trapezoids to use.
  * @return double The result of the integration.
  */
-[[nodiscard]] double integrate(const mpi::communicator &world, const std::function<double(double)> &func, double start, double end, int num);
+[[nodiscard]] double integrate(const mpi::communicator &world,
+  const std::function<double(double)> &func,
+  double start,
+  double end,
+  int num);
 }// namespace parallel
 
 

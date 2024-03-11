@@ -1,7 +1,7 @@
 #ifndef SERIAL_INTEGRATE_HPP
 #define SERIAL_INTEGRATE_HPP
-#include <serial_integrate_export.hpp>
 #include <functional>
+#include <serial_integrate_export.hpp>
 
 namespace serial {
 /**

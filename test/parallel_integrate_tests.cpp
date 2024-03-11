@@ -1,8 +1,8 @@
+#include <boost/math/constants/constants.hpp>
 #include <boost/mpi/communicator.hpp>
 #include <boost/mpi/environment.hpp>
-#include <boost/math/constants/constants.hpp>
-#include <catch2/catch_test_macros.hpp>
 #include <catch2/benchmark/catch_benchmark.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include <functional>
 #include <parallel_integrate.hpp>
