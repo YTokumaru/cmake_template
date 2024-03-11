@@ -61,10 +61,10 @@ jobs:
       - name: Install Intel oneAPI
         if: steps.setup_oneapi_cache.outputs.cache-hit != 'true'
         run: |
-          Invoke-WebRequest -Uri $env:BASEKIT_URL -OutFile $env:TEMP\basekit.exe
-          $env:TEMP\basekit.exe --silent --eula accept
-          Invoke-WebRequest -Uri $env:HPCKIT_URL -OutFile $env:TEMP\hpckit.exe
-          $env:TEMP\hpckit.exe --silent --eula accept
+          Invoke-RestMethod -Uri $env:BASEKIT_URL -OutFile $env:TEMP\basekit.exe
+          & $env:TEMP\basekit.exe --silent --eula accept
+          Invoke-RestMethod -Uri $env:HPCKIT_URL -OutFile $env:TEMP\hpckit.exe
+          & $env:TEMP\hpckit.exe --silent --eula accept
         shell: powershell
           
       - name: Configure CMake
