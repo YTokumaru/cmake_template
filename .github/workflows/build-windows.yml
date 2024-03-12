@@ -69,7 +69,7 @@ jobs:
       - name: Set Environment Variables
         run: |
           call "C:\Program Files (x86)\Intel\oneAPI\setvars.bat"
-          echo %PATH% >> $GITHUB_PATH
+          echo %PATH% >> %GITHUB_PATH%
         shell: cmd
 
       - name: (Debug) Show Path
