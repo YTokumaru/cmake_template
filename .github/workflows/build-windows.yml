@@ -41,13 +41,12 @@ jobs:
         with:
           envFile: ".github/constants.env"
       
-      # TODO: use lists of compoents to install as the key
-      # - name: Setup OneAPI cache
-      #   id: setup_oneapi_cache
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: C:\Program Files (x86)\Intel\oneAPI
-      #     key: oneapi-${{ runner.os }}-${{ env.BASEKIT_URL }}-${{ env.HPCKIT_URL }}
+      - name: Setup OneAPI cache
+        id: setup_oneapi_cache
+        uses: actions/cache@v4
+        with:
+          path: C:\Program Files (x86)\Intel\oneAPI
+          key: oneapi-${{ runner.os }}-${{ hashFiles('.github/oneapi_components.json') }}-${{ env.BASEKIT_URL }}-${{ env.HPCKIT_URL }}
 
       - name: Install dependencies using chocolatey
         run: |
@@ -60,10 +59,23 @@ jobs:
         shell: powershell
 
       - name: Install Intel MPI
-        # if: steps.setup_oneapi_cache.outputs.cache-hit != 'true'
+        if: steps.setup_oneapi_cache.outputs.cache-hit != 'true'
         run: |
-          curl.exe -o $env:TEMP\hpckit.exe --url ${{ env.HPCKIT_URL }}
-          Start-Process -FilePath "$env:TEMP\hpckit.exe" -ArgumentList "-s -a --silent --eula accept --components intel.oneapi.win.mpi.devel" -NoNewWindow -Wait
+          $json = Get-Content -Path .github/oneapi_components.json | ConvertFrom-Json
+          $basekitComponents = $json.Windows.basekit.components
+          $hpckitComponents = $json.Windows.hpckit.components
+          if ($basekitComponents.Count -gt 0) {
+            curl.exe -o $env:TEMP\basekit.exe --url ${{ env.BASEKIT_URL }}
+            foreach ($component in $basekitComponents) {
+              Start-Process -FilePath "$env:TEMP\basekit.exe" -ArgumentList "-s -a --silent --eula accept --components $component" -NoNewWindow -Wait
+            }
+          }
+          if ($hpckitComponents.Count -gt 0) {
+            curl.exe -o $env:TEMP\hpckit.exe --url ${{ env.HPCKIT_URL }}
+            foreach ($component in $hpckitComponents) {
+              Start-Process -FilePath "$env:TEMP\hpckit.exe" -ArgumentList "-s -a --silent --eula accept --components $component" -NoNewWindow -Wait
+            }
+          }
         shell: powershell
       
       - name: Set Environment Variables
