@@ -68,31 +68,30 @@ jobs:
       
       - name: Set Environment Variables
         run: |
-          call "C:\Program Files (x86)\Intel\oneAPI\setvars.bat"
-          echo %PATH% >> %GITHUB_PATH%
-        shell: cmd
+          $before = cmd /c set
+          $after = cmd /c 'call "C:\Program Files (x86)\Intel\oneAPI\setvars.bat" >null & set'
+          $diff = Compare-Object -ReferenceObject $before -DifferenceObject $after
+          $newVars = $diff | Where-Object { $_.SideIndicator -eq "=>" } | ForEach-Object { $_.InputObject }
+          foreach ($var in $newVars) {
+            $varName, $varValue = $var -split "=", 2
+            echo "$varName=$varValue" >> $env:GITHUB_ENV
+          }
+        shell: powershell
 
       - name: (Debug) Show Path
         run: |
           echo $env:PATH
         shell: powershell
 
-      - name: Locate Visual Studio and CMake
-        run: |
-          $vsPath = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -property installationPath
-          $cmakePath = Join-Path $vsPath "Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe"
-          echo "CMAKE=$cmakePath" >> $env:GITHUB_ENV
-        shell: powershell
-
       - name: Configure CMake
         run: |
-          & "${{ env.CMAKE }}" -S . --preset ${{matrix.preset}} -DGIT_SHA:STRING=${{ github.sha }}
+          cmake --preset ${{matrix.preset}} -DGIT_SHA:STRING=${{ github.sha }}
         shell: powershell
 
       - name: Build
         # Execute the build.
         run: |
-          & "${{ env.CMAKE }}" --build --preset build-${{matrix.preset}}
+          cmake --build --preset build-${{matrix.preset}}
         shell: powershell
 
       - name: Test
