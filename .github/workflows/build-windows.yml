@@ -68,9 +68,9 @@ jobs:
       
       - name: Set Environment Variables
         run: |
-          cmd.exe "/K" '"C:\Program Files (x86)\Intel\oneAPI\setvars.bat" && powershell'
-          echo $env:PATH | Out-File -FilePath $env:GITHUB_PATH -Append
-        shell: powershell
+          call "C:\Program Files (x86)\Intel\oneAPI\setvars.bat"
+          echo %PATH% >> $GITHUB_PATH
+        shell: cmd
 
       - name: (Debug) Show Path
         run: |
