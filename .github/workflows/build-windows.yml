@@ -65,33 +65,40 @@ jobs:
           curl.exe -o $env:TEMP\hpckit.exe --url ${{ env.HPCKIT_URL }}
           Start-Process -FilePath "$env:TEMP\hpckit.exe" -ArgumentList "-s -a --silent --eula accept --components intel.oneapi.win.mpi.devel" -NoNewWindow -Wait
         shell: powershell
-          
+      
+      - name: Set Environment Variables
+        run: |
+          cmd.exe "/K" '"C:\Program Files (x86)\Intel\oneAPI\setvars.bat" && powershell'
+          echo $env:PATH | Out-File -FilePath $env:GITHUB_PATH -Append
+        shell: powershell
+
+      - name: (Debug) Show Path
+        run: |
+          echo $env:PATH
+        shell: powershell
+
       - name: Configure CMake
         run: |
-          "C:\Program Files (x86)\Intel\oneAPI\setvars.bat"
           cmake -S . --preset ${{matrix.preset}} -DGIT_SHA:STRING=${{ github.sha }}
-        shell: cmd
+        shell: powershell
 
       - name: Build
         # Execute the build.
         run: |
-          "C:\Program Files (x86)\Intel\oneAPI\setvars.bat"
           cmake --build --preset build-${{matrix.preset}}
-        shell: cmd
+        shell: powershell
 
       - name: Test
         if: ${{ !contains(matrix.preset, 'debug') }}
         run: |
-          "C:\Program Files (x86)\Intel\oneAPI\setvars.bat"
           ctest --preset test-${{matrix.preset}}
-        shell: cmd
+        shell: powershell
 
       - name: Test & Coverage
         if: ${{ contains(matrix.preset, 'debug') }}
         run: |
-          "C:\Program Files (x86)\Intel\oneAPI\setvars.bat"
           & "C:\Program Files\OpenCppCoverage\OpenCppCoverage.exe" --export_type cobertura:coverage.xml --cover_children --sources ${{ github.workspace }}\src --sources ${{ github.workspace }}\include -- ctest.exe --preset test-${{matrix.preset}}
-        shell: cmd
+        shell: powershell
 
       - name: Publish to codecov
         uses: codecov/codecov-action@v4
