@@ -41,12 +41,13 @@ jobs:
         with:
           envFile: ".github/constants.env"
       
-      - name: Setup OneAPI cache
-        id: setup_oneapi_cache
-        uses: actions/cache@v4
-        with:
-          path: C:\Program Files (x86)\Intel\oneAPI
-          key: oneapi-${{ runner.os }}-${{ env.BASEKIT_URL }}-${{ env.HPCKIT_URL }}
+      # TODO: use lists of compoents to install as the key
+      # - name: Setup OneAPI cache
+      #   id: setup_oneapi_cache
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: C:\Program Files (x86)\Intel\oneAPI
+      #     key: oneapi-${{ runner.os }}-${{ env.BASEKIT_URL }}-${{ env.HPCKIT_URL }}
 
       - name: Install dependencies using chocolatey
         run: |
@@ -58,13 +59,11 @@ jobs:
           refreshenv
         shell: powershell
 
-      - name: Install Intel oneAPI
-        if: steps.setup_oneapi_cache.outputs.cache-hit != 'true'
+      - name: Install Intel MPI
+        # if: steps.setup_oneapi_cache.outputs.cache-hit != 'true'
         run: |
-          curl.exe -Url $env:BASEKIT_URL -OutFile $env:TEMP\basekit.exe
-          & $env:TEMP\basekit.exe --silent --eula accept
-          curl.exe -Url $env:HPCKIT_URL -OutFile $env:TEMP\hpckit.exe
-          & $env:TEMP\hpckit.exe --silent --eula accept
+          curl.exe -Url $env:HPCKIT_URL -o $env:TEMP\hpckit.exe
+          & $env:TEMP\hpckit.exe -s -a --silent --eula accept --components intel.oneapi.win.mpi.devel
         shell: powershell
           
       - name: Configure CMake
