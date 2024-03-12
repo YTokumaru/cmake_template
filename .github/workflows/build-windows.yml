@@ -68,30 +68,30 @@ jobs:
           
       - name: Configure CMake
         run: |
-          cmd.exe "/K" '"C:\Program Files (x86)\Intel\oneAPI\setvars.bat" && powershell'
+          "C:\Program Files (x86)\Intel\oneAPI\setvars.bat"
           cmake -S . --preset ${{matrix.preset}} -DGIT_SHA:STRING=${{ github.sha }}
-        shell: powershell
+        shell: cmd
 
       - name: Build
         # Execute the build.
         run: |
-          cmd.exe "/K" '"C:\Program Files (x86)\Intel\oneAPI\setvars.bat" && powershell'
+          "C:\Program Files (x86)\Intel\oneAPI\setvars.bat"
           cmake --build --preset build-${{matrix.preset}}
-        shell: powershell
+        shell: cmd
 
       - name: Test
         if: ${{ !contains(matrix.preset, 'debug') }}
         run: |
-          cmd.exe "/K" '"C:\Program Files (x86)\Intel\oneAPI\setvars.bat" && powershell'
+          "C:\Program Files (x86)\Intel\oneAPI\setvars.bat"
           ctest --preset test-${{matrix.preset}}
-        shell: powershell
+        shell: cmd
 
       - name: Test & Coverage
         if: ${{ contains(matrix.preset, 'debug') }}
         run: |
-          cmd.exe "/K" '"C:\Program Files (x86)\Intel\oneAPI\setvars.bat" && powershell'
+          "C:\Program Files (x86)\Intel\oneAPI\setvars.bat"
           & "C:\Program Files\OpenCppCoverage\OpenCppCoverage.exe" --export_type cobertura:coverage.xml --cover_children --sources ${{ github.workspace }}\src --sources ${{ github.workspace }}\include -- ctest.exe --preset test-${{matrix.preset}}
-        shell: powershell
+        shell: cmd
 
       - name: Publish to codecov
         uses: codecov/codecov-action@v4
