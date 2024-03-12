@@ -4,7 +4,6 @@ on:
   release:
     types: [published]
   push:
-    tags:
     branches:
       - main
       - develop
@@ -47,6 +46,7 @@ jobs:
           brew install cppcheck
           brew install ccache
           brew install ninja
+          brew install open-mpi
 
       - name: Get project name
         uses: cardinalby/export-env-action@v2
