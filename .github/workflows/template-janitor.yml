@@ -121,6 +121,11 @@ jobs:
 
           gcovr: false
           opencppcoverage: false
+      
+      - name: Install OpenMPI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openmpi-bin libopenmpi-dev
 
       - name: Project Name
         uses: cardinalby/export-env-action@v2
