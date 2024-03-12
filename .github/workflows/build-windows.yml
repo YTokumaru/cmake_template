@@ -8,10 +8,6 @@ on:
       - main
       - develop
 
-env:
-  BASEKIT_URL: https://registrationcenter-download.intel.com/akdlm/IRC_NAS/62641e01-1e8d-4ace-91d6-ae03f7f8a71f/w_BaseKit_p_2024.0.0.49563_offline.exe
-  HPCKIT_URL: https://registrationcenter-download.intel.com/akdlm/IRC_NAS/5b36181e-4974-4733-91c7-0c10c54900a5/w_HPCKit_p_2024.0.0.49588_offline.exe  
-
 jobs:
   Test:
     runs-on: windows-latest
@@ -61,10 +57,8 @@ jobs:
       - name: Install Intel oneAPI
         if: steps.setup_oneapi_cache.outputs.cache-hit != 'true'
         run: |
-          curl.exe -Url $env:BASEKIT_URL -OutFile $env:TEMP\basekit.exe
-          & $env:TEMP\basekit.exe --silent --eula accept
-          curl.exe -Url $env:HPCKIT_URL -OutFile $env:TEMP\hpckit.exe
-          & $env:TEMP\hpckit.exe --silent --eula accept
+          pip install mkl-dpcpp
+          pip install impi_rt
         shell: powershell
           
       - name: Configure CMake
