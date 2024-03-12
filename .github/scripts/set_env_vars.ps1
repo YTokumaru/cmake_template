@@ -6,8 +6,10 @@ param(
     [string]$batchFilePath
 )
 
+Write-Host "Setting environment variables from $batchFilePath"
+
 $before = cmd /c set
-$after = cmd /c "call $batchFilePath >null & set"
+$after = cmd /c "call `"$batchFilePath`" >null & set"
 $diff = Compare-Object -ReferenceObject $before -DifferenceObject $after
 $newVars = $diff | Where-Object { $_.SideIndicator -eq "=>" } | ForEach-Object { $_.InputObject }
 foreach ($var in $newVars) {

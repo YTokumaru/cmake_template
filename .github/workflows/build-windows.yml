@@ -64,7 +64,7 @@ jobs:
         shell: powershell
       
       - name: Set Environment Variables
-        run: powershell .github/scripts/set_env_vars.ps1 "C:\Program Files (x86)\Intel\oneAPI\setvars.bat"
+        run: powershell -File .github/scripts/set_env_vars.ps1 'C:\Program Files (x86)\Intel\oneAPI\setvars.bat'
         shell: powershell
 
       - name: (Debug) Show Path
