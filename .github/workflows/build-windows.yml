@@ -86,13 +86,13 @@ jobs:
 
       - name: Configure CMake
         run: |
-          ${{ env.CMAKE }} -S . --preset ${{matrix.preset}} -DGIT_SHA:STRING=${{ github.sha }}
+          & ${{ env.CMAKE }} -S . --preset ${{matrix.preset}} -DGIT_SHA:STRING=${{ github.sha }}
         shell: powershell
 
       - name: Build
         # Execute the build.
         run: |
-          ${{ env.CMAKE }} --build --preset build-${{matrix.preset}}
+          & ${{ env.CMAKE }} --build --preset build-${{matrix.preset}}
         shell: powershell
 
       - name: Test
