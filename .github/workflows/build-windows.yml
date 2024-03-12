@@ -60,34 +60,11 @@ jobs:
 
       - name: Install Intel OneAPI
         if: steps.setup_oneapi_cache.outputs.cache-hit != 'true'
-        run: |
-          $json = Get-Content -Path .github/oneapi_components.json | ConvertFrom-Json
-          $basekitComponents = $json.Windows.basekit.components
-          $hpckitComponents = $json.Windows.hpckit.components
-          if ($basekitComponents.Count -gt 0) {
-            curl.exe -o $env:TEMP\basekit.exe --url ${{ env.BASEKIT_URL }}
-            foreach ($component in $basekitComponents) {
-              Start-Process -FilePath "$env:TEMP\basekit.exe" -ArgumentList "-s -a --silent --eula accept --components $component" -NoNewWindow -Wait
-            }
-          }
-          if ($hpckitComponents.Count -gt 0) {
-            curl.exe -o $env:TEMP\hpckit.exe --url ${{ env.HPCKIT_URL }}
-            foreach ($component in $hpckitComponents) {
-              Start-Process -FilePath "$env:TEMP\hpckit.exe" -ArgumentList "-s -a --silent --eula accept --components $component" -NoNewWindow -Wait
-            }
-          }
+        run: powershell .github/scripts/install_oneapi.ps1 "${{ env.BASEKIT_URL }}" "${{ env.HPCKIT_URL }}" ".github/oneapi_components.json"
         shell: powershell
       
       - name: Set Environment Variables
-        run: |
-          $before = cmd /c set
-          $after = cmd /c 'call "C:\Program Files (x86)\Intel\oneAPI\setvars.bat" >null & set'
-          $diff = Compare-Object -ReferenceObject $before -DifferenceObject $after
-          $newVars = $diff | Where-Object { $_.SideIndicator -eq "=>" } | ForEach-Object { $_.InputObject }
-          foreach ($var in $newVars) {
-            $varName, $varValue = $var -split "=", 2
-            echo "$varName=$varValue" >> $env:GITHUB_ENV
-          }
+        run: powershell .github/scripts/set_env_vars.ps1 "C:\Program Files (x86)\Intel\oneAPI\setvars.bat"
         shell: powershell
 
       - name: (Debug) Show Path
