@@ -77,15 +77,22 @@ jobs:
           echo $env:PATH
         shell: powershell
 
+      - name: Locate Visual Studio and CMake
+        run: |
+          $vsPath = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -property installationPath
+          $cmakePath = Join-Path $vsPath "Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe"
+          echo "CMAKE=$cmakePath" >> $env:GITHUB_ENV
+        shell: powershell
+
       - name: Configure CMake
         run: |
-          cmake -S . --preset ${{matrix.preset}} -DGIT_SHA:STRING=${{ github.sha }}
+          ${{ env.CMAKE }} -S . --preset ${{matrix.preset}} -DGIT_SHA:STRING=${{ github.sha }}
         shell: powershell
 
       - name: Build
         # Execute the build.
         run: |
-          cmake --build --preset build-${{matrix.preset}}
+          ${{ env.CMAKE }} --build --preset build-${{matrix.preset}}
         shell: powershell
 
       - name: Test
