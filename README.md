@@ -124,6 +124,36 @@ ctest --preset test-<preset_name>
 
 Feel free to modify the presets to your liking in `CMakePresets.json`.
 
+## Customizing the project
+
+### Continuous Integration
+
+#### OneAPI
+
+The components to be installed to github runners are specified in a JSON file named `oneapi_components.json`.
+The project currently uses OneAPI to install MPI binaries and library to the windows runners.
+
+The `oneapi_components.json` file is structured as follows:
+
+```json
+{
+    "Windows": {
+        "basekit": {
+            "components": ["comp1", "comp2"]
+        },
+        "hpckit": {
+            "components": ["comp3", "comp4"]
+        }
+    }
+}
+```
+In this file, you can specify the components you want to install for each kit. The components should be specified as an array of strings under the components key.
+
+The list of component names is available at [https://oneapi-src.github.io/oneapi-ci/](https://oneapi-src.github.io/oneapi-ci/).
+If you have the installer at your hand, you can run it with `--list-components` to get the list of components the installer can install.
+
+If you want to update the installer itself, change the URL in the workflow file.
+
 ## Experiencing issues?
 
 ### Debugging CMakefile

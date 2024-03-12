@@ -1,0 +1,10 @@
+{
+  "Windows": {
+    "basekit": {
+      "components": []
+    },
+    "hpckit": {
+      "components": ["intel.oneapi.win.mpi.devel"]
+    }
+  }
+}
