@@ -63,7 +63,7 @@ jobs:
         # if: steps.setup_oneapi_cache.outputs.cache-hit != 'true'
         run: |
           curl.exe -o $env:TEMP\hpckit.exe --url ${{ env.HPCKIT_URL }}
-          & $env:TEMP\hpckit.exe -s -a --silent --eula accept --components intel.oneapi.win.mpi.devel
+          Start-Process -FilePath "$env:TEMP\hpckit.exe" -ArgumentList "-s -a --silent --eula accept --components intel.oneapi.win.mpi.devel" -NoNewWindow -Wait
         shell: powershell
           
       - name: Configure CMake
