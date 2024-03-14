@@ -70,7 +70,7 @@ jobs:
           NEW_SAFE_PROJECT=$(echo ${{ env.NEW_PROJECT }} | sed "s/-/_/g" | sed "s/\./_/g" )
           echo "NEW_SAFE_PROJECT=$NEW_SAFE_PROJECT" >> $GITHUB_ENV
 
-      # Rename all cpp_starter_project occurences to current repository and remove this workflow
+      # Rename all project name occurences to current repository and remove this workflow
       - name: Insert new org and project
         run: |
           # rename the CMake project to match the github project
@@ -85,6 +85,10 @@ jobs:
           sed -i "s|%%description%%|${{ fromJson(steps.get_repo_meta.outputs.data).description }}|g" ${{ env.TEMPLATES_PATH }}/README.md
           mv include/myproject include/${{ env.NEW_SAFE_PROJECT }}
           cp ${{ env.TEMPLATES_PATH }}/README.md README.md
+
+      - name: Disable MPI for new projects
+        run: |
+          sed -i 's/"myproject_ENABLE_MPI": "ON"/"myproject_ENABLE_MPI": "OFF"/g' CMakePresets.json
 
       - name: Print diff after replacement
         run: |
