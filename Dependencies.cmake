@@ -62,7 +62,7 @@ function(myproject_setup_dependencies)
         "FTXUI_BUILD_EXAMPLES OFF")
   endif()
 
-  if(NOT TARGET boost_mpi)
+  if(myproject_ENABLE_MPI)
     # boost is a huge project and directly downloading the 'alternate release'
     # from github is much faster than recursively cloning the repo.
     CPMAddPackage(

@@ -11,7 +11,11 @@
       "description": "General settings that apply to all configurations",
       "hidden": true,
       "binaryDir": "${sourceDir}/out/build/${presetName}",
-      "installDir": "${sourceDir}/out/install/${presetName}"
+      "installDir": "${sourceDir}/out/install/${presetName}",
+      "cacheVariables": {
+        "myproject_ENABLE_MPI": "ON",
+        "myproject_NPROC": "4"
+      }
     },
     {
       "name": "conf-windows-common",
