@@ -89,6 +89,7 @@ if(MSVC)
   get_all_installable_targets(all_targets)
   message("all_targets=${all_targets}")
   set_target_properties(${all_targets} PROPERTIES VS_DEBUGGER_ENVIRONMENT "PATH=$(VC_ExecutablePath_x64);%PATH%")
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /DEBUG")
 endif()
 
 # set the startup project for the "play" button in MSVC
