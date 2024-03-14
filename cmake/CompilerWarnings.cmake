@@ -86,6 +86,7 @@ function(
     list(APPEND CLANG_WARNINGS -Werror)
     list(APPEND GCC_WARNINGS -Werror)
     list(APPEND MSVC_WARNINGS /WX)
+    list(APPEND MSVC_WARNINGS /sdl)
   endif()
 
   if(MSVC)

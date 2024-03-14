@@ -77,6 +77,11 @@ jobs:
 
           gcovr: false
           opencppcoverage: false
+      
+      - name: Install MPI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openmpi-bin libopenmpi-dev
 
         # make sure coverage is only enabled for Debug builds, since it sets -O0 to make sure coverage
         # has meaningful results

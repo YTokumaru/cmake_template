@@ -4,7 +4,6 @@ on:
   release:
     types: [published]
   push:
-    tags:
     branches:
       - main
       - develop
@@ -72,6 +71,11 @@ jobs:
           ccache: true
           clangtidy: true
           gcovr: true
+      
+      - name: Install OpenMPI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openmpi-bin libopenmpi-dev
 
       - name: Configure CMake
         run: |
