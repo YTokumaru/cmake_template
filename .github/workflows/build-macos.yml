@@ -54,12 +54,12 @@ jobs:
           envFile: ".github/constants.env"
       - name: Configure CMake
         run: |
-          cmake --preset ${{matrix.preset}}
+          cmake --preset ${{matrix.preset}} -Dmyproject_NPROC=2
 
       - name: Build
         # Execute the build.
         run: |
-          cmake --build --preset build-${{matrix.preset}} -Dmyproject_NPROC=2
+          cmake --build --preset build-${{matrix.preset}}
 
       - name: Test
         if: ${{ !contains(matrix.preset, 'debug') }}
