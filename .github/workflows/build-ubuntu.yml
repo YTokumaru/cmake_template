@@ -45,36 +45,14 @@ jobs:
         uses: cardinalby/export-env-action@v2
         with:
           envFile: ".github/constants.env"
-
-      - name: Setup Cpp
-        if: ${{ contains(matrix.preset, 'clang') }}
-        uses: aminya/setup-cpp@v1
-        with:
-          compiler: llvm-15
-          cmake: true
-          ninja: true
-          vcpkg: true
-          cppcheck: true
-          ccache: true
-          clangtidy: 15
-          gcovr: true
-
-      - name: Setup Cpp
-        if: ${{ contains(matrix.preset, 'gcc') }}
-        uses: aminya/setup-cpp@v1
-        with:
-          compiler: gcc-11
-          cmake: true
-          ninja: true
-          vcpkg: true
-          cppcheck: true
-          ccache: true
-          clangtidy: true
-          gcovr: true
-      
-      - name: Install OpenMPI
+    
+      - name: Install dependencies
         run: |
           sudo apt-get update
+          sudo apt-get install -y gcovr
+          sudo apt-get install -y cppcheck
+          sudo apt-get install -y ccache
+          sudo apt-get install -y ninja-build
           sudo apt-get install -y openmpi-bin libopenmpi-dev
 
       - name: Configure CMake
