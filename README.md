@@ -126,6 +126,16 @@ Feel free to modify the presets to your liking in `CMakePresets.json`.
 
 ## Customizing the project
 
+### MPI support
+
+The project supports MPI (Message Passing Interface) for distributed computing. By default, MPI is disabled. To enable MPI, you need to set `"myproject_ENABLE_MPI": "ON"` in the `CMakePresets.json` file. 
+
+In addition to enabling MPI, you can also specify the number of nodes used when running `ctest` by setting the `"myproject_NPROC"` variable in the `CMakePresets.json` file. For example, to use 4 nodes, you would set `"myproject_NPROC": 4`.
+
+Please note that you need to have MPI installed on your system. 
+
+To disable MPI, you can set `"myproject_ENABLE_MPI": "OFF"` in the `CMakePresets.json` file.
+
 ### Continuous Integration
 
 #### OneAPI
