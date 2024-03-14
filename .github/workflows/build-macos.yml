@@ -59,7 +59,7 @@ jobs:
       - name: Build
         # Execute the build.
         run: |
-          cmake --build --preset build-${{matrix.preset}}
+          cmake --build --preset build-${{matrix.preset}} -Dmyproject_NPROC=2
 
       - name: Test
         if: ${{ !contains(matrix.preset, 'debug') }}
