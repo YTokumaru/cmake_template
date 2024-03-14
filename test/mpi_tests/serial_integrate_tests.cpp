@@ -1,7 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
 
-#include <serial_integrate.hpp>
+#include <mpi_sample/serial_integrate.hpp>
 
 TEST_CASE("Integrate a simple function", "[integrate]")
 {

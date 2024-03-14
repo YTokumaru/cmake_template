@@ -5,7 +5,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include <functional>
-#include <parallel_integrate.hpp>
+#include <mpi_sample/parallel_integrate.hpp>
 
 namespace mpi = boost::mpi;
 namespace math = boost::math;
