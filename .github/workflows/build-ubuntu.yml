@@ -57,7 +57,7 @@ jobs:
 
       - name: Configure CMake
         run: |
-          GCC_INSTALL_DIR_FLAG="--gcc-install-dir=$(dirname $(gcc-12 -print-libgcc-file-name))"
+          GCC_INSTALL_DIR_FLAG=--gcc-install-dir=$(dirname $(gcc-12 -print-libgcc-file-name))
           cmake -DCMAKE_CXX_FLAGS="$GCC_INSTALL_DIR_FLAG" --preset ${{matrix.preset}}
 
       - name: Build
