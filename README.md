@@ -1,4 +1,4 @@
-# CMake Template
+# C++ Project Kickstarter
 
 [![build(Windows)](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/build-windows.yml/badge.svg)](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/build-windows.yml)
 [![build(Ubuntu)](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/build-ubuntu.yml/badge.svg)](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/build-ubuntu.yml)
