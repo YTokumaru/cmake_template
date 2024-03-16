@@ -56,7 +56,7 @@ function(myproject_setup_dependencies)
       GITHUB_REPOSITORY
         "ArthurSonzogni/FTXUI"
       GIT_TAG
-        "v5.0.0"
+        "v4.1.1"
       OPTIONS
         "FTXUI_BUILD_DOCS OFF"
         "FTXUI_BUILD_EXAMPLES OFF")
