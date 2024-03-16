@@ -54,7 +54,11 @@ jobs:
           sudo apt-get install -y ccache
           sudo apt-get install -y ninja-build
           sudo apt-get install -y openmpi-bin libopenmpi-dev
-          sudo apt-get install -y libc++-dev libc++abi-dev
+      
+      - name: Remove gcc-13 libraries
+        run: |
+          sudo apt-get remove -y gcc-13
+          sudo apt-get autoremove -y
 
       - name: Configure CMake
         run: |
