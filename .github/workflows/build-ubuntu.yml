@@ -57,8 +57,10 @@ jobs:
 
       - name: Configure CMake
         run: |
-          GCC_INSTALL_DIR_FLAG=--gcc-toolchain=$(dirname $(gcc-12 -print-libgcc-file-name))
-          cmake -DCMAKE_CXX_FLAGS="$GCC_INSTALL_DIR_FLAG" --preset ${{matrix.preset}}
+          LIBSTDCPP_PATH=$(dirname $(gcc-12 -print-file-name=libstdc++.so))
+          LD_LIBRARY_PATH=$LIBSTDCPP_PATH:$LD_LIBRARY_PATH
+          echo $LD_LIBRARY_PATH >> $GITHUB_ENV
+          cmake --preset ${{matrix.preset}}
 
       - name: Build
         # Execute the build.
