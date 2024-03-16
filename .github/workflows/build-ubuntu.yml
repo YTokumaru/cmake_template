@@ -54,12 +54,10 @@ jobs:
           sudo apt-get install -y ccache
           sudo apt-get install -y ninja-build
           sudo apt-get install -y openmpi-bin libopenmpi-dev
+          sudo apt-get install -y libc++-dev libc++abi-dev
 
       - name: Configure CMake
         run: |
-          LIBSTDCPP_PATH=$(dirname $(gcc-12 -print-file-name=libstdc++.so))
-          LD_LIBRARY_PATH=$LIBSTDCPP_PATH:$LD_LIBRARY_PATH
-          echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> $GITHUB_ENV
           cmake --preset ${{matrix.preset}}
 
       - name: Build
