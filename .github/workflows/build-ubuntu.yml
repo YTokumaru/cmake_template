@@ -49,6 +49,14 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
+          sudo apt-get install -y gcc
+          sudo apt-get install -y g++
+          sudo apt-get install -y clang
+          sudo apt-get install -y clang-tools
+          sudo apt-get install -y clang-tidy
+          sudo apt-get install -y clang-format
+          sudo apt-get install -y llvm-dev
+          sudo apt-get install -y cmake
           sudo apt-get install -y gcovr
           sudo apt-get install -y cppcheck
           sudo apt-get install -y ccache
