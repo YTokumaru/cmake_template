@@ -34,7 +34,8 @@
 		"eamodio.gitlens",
 		"ms-python.python",
 		"ms-python.vscode-pylance",
-		"mutantdino.resourcemonitor"
+		"mutantdino.resourcemonitor",
+		"github.vscode-github-actions"
 	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
