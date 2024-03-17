@@ -52,6 +52,19 @@ jobs:
         uses: cardinalby/export-env-action@v2
         with:
           envFile: ".github/constants.env"
+
+      - name: Setup CPM cache path
+        run: |
+          CPM_SOURCE_CACHE=~/.cache/cpm
+          mkdir -p $CPM_SOURCE_CACHE
+          "CPM_SOURCE_CACHE=$CPM_SOURCE_CACHE" >> $GITHUB_ENV
+
+      - name: Setup CPM cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/cpm
+          key: ${{ runner.os }}-cpm-${{ hashFiles('CMakePresets.json') }}-${{ hashFiles('**/CMakeLists.txt') }}-${{ hashFiles('**/*.cmake') }}
+
       - name: Configure CMake
         run: |
           cmake --preset ${{matrix.preset}} -Dmyproject_NPROC=2
