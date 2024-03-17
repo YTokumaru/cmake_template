@@ -52,8 +52,7 @@ jobs:
         with:
           runCmd: |
             cmake --preset ${{matrix.preset}}
-            cd out/build/${{matrix.preset}}
-            cmake --build . -- -j1
+            cmake --build --preset build-${{matrix.preset}}
             ctest --preset test-${{matrix.preset}}
 
       # - name: Test & Coverage
