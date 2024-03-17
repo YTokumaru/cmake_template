@@ -65,6 +65,12 @@ jobs:
           path: ~/.cache/cpm
           key: ${{ runner.os }}-cpm-${{ hashFiles('CMakePresets.json') }}-${{ hashFiles('**/CMakeLists.txt') }}-${{ hashFiles('**/*.cmake') }}
 
+      - name: Setup ccache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/ccache
+          key: ${{ runner.os }}-ccache-${{ hashFiles('CMakePresets.json') }}-${{ hashFiles('**/CMakeLists.txt') }}-${{ hashFiles('**/*.cmake') }}
+      
       - name: Configure CMake
         run: |
           cmake --preset ${{matrix.preset}} -Dmyproject_NPROC=2
