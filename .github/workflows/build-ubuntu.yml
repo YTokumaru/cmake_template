@@ -66,6 +66,7 @@ jobs:
       - name: Remove gcc-13 libraries
         run: |
           sudo apt-get remove -y gcc-13
+          sudo apt-get remove -y g++-13
           sudo apt-get autoremove -y
 
       - name: Configure CMake
