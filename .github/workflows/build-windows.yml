@@ -47,7 +47,25 @@ jobs:
         with:
           path: C:\Program Files (x86)\Intel\oneAPI
           key: oneapi-${{ runner.os }}-${{ hashFiles('.github/oneapi_components.json') }}-${{ env.BASEKIT_URL }}-${{ env.HPCKIT_URL }}
+      
+      - name: Setup CPM cache path
+        run: |
+          mkdir -p $env:USERPROFILE\.cpm\cache
+          echo "CPM_SOURCE_CACHE=$env:USERPROFILE\.cpm\cache" | Out-File -Append -Encoding utf8 -FilePath $env:GITHUB_ENV
+        shell: powershell
 
+      - name: Setup CPM cache
+        uses: actions/cache@v2
+        with:
+          path: $env:USERPROFILE\.cpm\cache
+          key: ${{ runner.os }}-cpm-${{ hashFiles('CMakePresets.json') }}-${{ hashFiles('**/CMakeLists.txt') }}-${{ hashFiles('**/*.cmake') }}
+
+      - name: Setup ccache
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.USERPROFILE }}\.ccache
+          key: ${{ runner.os }}-ccache-${{ hashFiles('CMakePresets.json') }}-${{ hashFiles('**/CMakeLists.txt') }}-${{ hashFiles('**/*.cmake') }}
+      
       - name: Install dependencies using chocolatey
         run: |
           choco install ccache
