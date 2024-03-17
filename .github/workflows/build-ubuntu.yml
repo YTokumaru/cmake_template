@@ -32,6 +32,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
+
       # TODO: Add caching with presets
       # - name: Setup Cache
       #   uses: ./.github/actions/setup_cache
@@ -46,71 +47,34 @@ jobs:
         with:
           envFile: ".github/constants.env"
 
-      - name: Setup Cpp
-        if: ${{ contains(matrix.preset, 'clang') }}
-        uses: aminya/setup-cpp@v1
+      - name: Setup devcontainer
+        uses: devcontainers/ci@v0.3
         with:
-          compiler: llvm-15
-          cmake: true
-          ninja: true
-          vcpkg: true
-          cppcheck: true
-          ccache: true
-          clangtidy: 15
-          gcovr: true
+          runCmd: |
+            cmake --preset ${{matrix.preset}}
+            cmake --build --preset build-${{matrix.preset}}
+            ctest --preset test-${{matrix.preset}}
 
-      - name: Setup Cpp
-        if: ${{ contains(matrix.preset, 'gcc') }}
-        uses: aminya/setup-cpp@v1
-        with:
-          compiler: gcc-11
-          cmake: true
-          ninja: true
-          vcpkg: true
-          cppcheck: true
-          ccache: true
-          clangtidy: true
-          gcovr: true
-      
-      - name: Install OpenMPI
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y openmpi-bin libopenmpi-dev
+      # - name: Test & Coverage
+      #   if: ${{ contains(matrix.preset, 'debug') && contains(matrix.preset, 'clang') }}
+      #   run: |
+      #     ctest --preset test-${{matrix.preset}}
+      #     cd out/build/${{matrix.preset}}/
+      #     gcovr -r ../../../ -f ../../../include -f ../../../src --xml-pretty --xml ../../../coverage.xml  --gcov-executable "llvm-cov gcov"
 
-      - name: Configure CMake
-        run: |
-          cmake --preset ${{matrix.preset}}
+      # - name: Test & Coverage
+      #   if: ${{ contains(matrix.preset, 'debug') && contains(matrix.preset, 'gcc') }}
+      #   run: |
+      #     ctest --preset test-${{matrix.preset}}
+      #     cd out/build/${{matrix.preset}}/
+      #     gcovr -r ../../../ -f ../../../include -f ../../../src --xml-pretty --xml ../../../coverage.xml  --gcov-executable "gcov"
 
-      - name: Build
-        # Execute the build.
-        run: |
-          cmake --build --preset build-${{matrix.preset}}
-
-      - name: Test
-        if: ${{ !contains(matrix.preset, 'debug') }}
-        run: |
-          ctest --preset test-${{matrix.preset}}
-
-      - name: Test & Coverage
-        if: ${{ contains(matrix.preset, 'debug') && contains(matrix.preset, 'clang') }}
-        run: |
-          ctest --preset test-${{matrix.preset}}
-          cd out/build/${{matrix.preset}}/
-          gcovr -r ../../../ -f ../../../include -f ../../../src --xml-pretty --xml ../../../coverage.xml  --gcov-executable "llvm-cov gcov"
-
-      - name: Test & Coverage
-        if: ${{ contains(matrix.preset, 'debug') && contains(matrix.preset, 'gcc') }}
-        run: |
-          ctest --preset test-${{matrix.preset}}
-          cd out/build/${{matrix.preset}}/
-          gcovr -r ../../../ -f ../../../include -f ../../../src --xml-pretty --xml ../../../coverage.xml  --gcov-executable "gcov"
-
-      - name: Publish to codecov
-        uses: codecov/codecov-action@v4
-        if: ${{ contains(matrix.preset, 'debug') }}
-        with:
-          flags: ${{ runner.os }}
-          name: ${{ runner.os }}-coverage
-          files: ${{ github.workspace }}/coverage.xml
-          token: ${{ secrets.CODECOV_TOKEN }}
-          verbose: true
+      # - name: Publish to codecov
+      #   uses: codecov/codecov-action@v4
+      #   if: ${{ contains(matrix.preset, 'debug') }}
+      #   with:
+      #     flags: ${{ runner.os }}
+      #     name: ${{ runner.os }}-coverage
+      #     files: ${{ github.workspace }}/coverage.xml
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+      #     verbose: true
