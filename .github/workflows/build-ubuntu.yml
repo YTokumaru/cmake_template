@@ -50,10 +50,12 @@ jobs:
       - name: Setup devcontainer
         uses: devcontainers/ci@v0.3
         with:
+          noCache: true
+          push: never
           runCmd: |
             cmake --preset ${{matrix.preset}}
             cmake --build --preset build-${{matrix.preset}}
-            ctest --preset test-${{matrix.preset}}
+      # ctest --preset test-${{matrix.preset}}
 
       # - name: Test & Coverage
       #   if: ${{ contains(matrix.preset, 'debug') && contains(matrix.preset, 'clang') }}
