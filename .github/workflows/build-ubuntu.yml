@@ -64,10 +64,11 @@ jobs:
           sudo apt-get install -y openmpi-bin libopenmpi-dev
           sudo apt-get install -y libboost-all-dev
       
-      - name: Remove gcc-13 libraries
+      - name: Remove gcc-13 and other libraries
         run: |
           sudo apt-get remove -y gcc-13
-          sudo apt-get remove -y g++-13
+          sudo apt-get remove -y gcc-12
+          sudo apt-get remove -y clang-15
           sudo apt-get autoremove -y
 
       - name: Configure CMake
