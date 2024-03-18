@@ -62,6 +62,7 @@ jobs:
           sudo apt-get install -y ccache
           sudo apt-get install -y ninja-build
           sudo apt-get install -y openmpi-bin libopenmpi-dev
+          sudo apt-get install -y libboost-all-dev
       
       - name: Remove gcc-13 libraries
         run: |
@@ -71,7 +72,7 @@ jobs:
 
       - name: Configure CMake
         run: |
-          cmake --preset ${{matrix.preset}}
+          cmake --preset ${{matrix.preset}} -Dmyproject_USE_SYSTEM_BOOST=TRUE
 
       - name: Build
         # Execute the build.

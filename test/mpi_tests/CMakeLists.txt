@@ -1,5 +1,8 @@
 include(GenerateExportHeader)
 
+if(myproject_USE_SYSTEM_BOOST)
+  find_package(Boost REQUIRED COMPONENTS mpi)
+endif()
 # ---- Dependencies ----
 include(${Catch2_SOURCE_DIR}/extras/Catch.cmake)
 
@@ -33,11 +36,14 @@ target_link_libraries(
           myproject::myproject_warnings
           myproject::myproject_options
           myproject::parallel_integrate)
+if(myproject_USE_SYSTEM_BOOST)
+  target_link_system_libraries(parallel_integrate_tests PRIVATE Boost::mpi)
+else()
+  target_link_system_libraries(parallel_integrate_tests PRIVATE boost_mpi boost_math)
+endif()
 target_link_system_libraries(
   parallel_integrate_tests
   PRIVATE
-  boost_mpi
-  boost_math
   Catch2::Catch2WithMain)
 set_target_properties(parallel_integrate_tests PROPERTIES CXX_CPPCHECK "")
 set_target_properties(parallel_integrate_tests PROPERTIES CXX_CLANG_TIDY "")
