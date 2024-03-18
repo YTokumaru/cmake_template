@@ -50,7 +50,6 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get upgrade -y
           sudo apt-get install -y build-essential
           sudo apt-get install -y llvm-dev
           sudo apt-get install -y cmake
@@ -60,8 +59,9 @@ jobs:
           sudo apt-get install -y ninja-build
           sudo apt-get install -y openmpi-bin libopenmpi-dev
           sudo apt-get install -y libboost-all-dev
-          sudo deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-17 main
-          sudo deb-src http://apt.llvm.org/jammy/ llvm-toolchain-jammy-17 main
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 17
           ln -s $(which clang-tidy-17) $(which clang-tidy)
     
       # - name: Setup tmate session
