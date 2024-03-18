@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      max-parallel: 1
 
       # Recommendations:
       #   * support at least 2 operating systems
@@ -67,11 +68,11 @@ jobs:
       - name: Remove gcc-13 and other libraries
         run: |
           sudo apt-get remove -y gcc-13
-          sudo apt-get remove -y gcc-12
-          sudo apt-get remove -y clang-15
-          sudo apt-get remove -y clang-tidy-15
           sudo apt-get autoremove -y
 
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+      
       - name: Configure CMake
         run: |
           cmake --preset ${{matrix.preset}} -Dmyproject_USE_SYSTEM_BOOST=TRUE
