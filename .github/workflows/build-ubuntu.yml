@@ -52,10 +52,6 @@ jobs:
           sudo apt-get update
           sudo apt-get upgrade -y
           sudo apt-get install -y build-essential
-          sudo apt-get install -y clang
-          sudo apt-get install -y clang-tools
-          sudo apt-get install -y clang-tidy
-          sudo apt-get install -y clang-format
           sudo apt-get install -y llvm-dev
           sudo apt-get install -y cmake
           sudo apt-get install -y gcovr
@@ -64,19 +60,20 @@ jobs:
           sudo apt-get install -y ninja-build
           sudo apt-get install -y openmpi-bin libopenmpi-dev
           sudo apt-get install -y libboost-all-dev
-      
-      - name: Remove gcc-13 and other libraries
-        run: |
-          sudo apt-get remove -y gcc-13
-          sudo apt-get autoremove -y
-
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+          sudo apt-get install -y llvm-toolchain-17
+    
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
       
       - name: Configure CMake
+        if: ${{ contains(matrix.preset, 'clang') }}
         run: |
-          cmake --preset ${{matrix.preset}} -Dmyproject_USE_SYSTEM_BOOST=TRUE
-
+          cmake --preset ${{matrix.preset}} -Dmyproject_USE_SYSTEM_BOOST=TRUE -DCMAKE_CXX_COMPILER=clang++-17 -DCMAKE_C_COMPILER=clang-17
+      
+      - name: Configure CMake
+        if: ${{ contains(matrix.preset, 'gcc') }}
+        run: |
+          cmake --preset ${{matrix.preset}} -Dmyproject_USE_SYSTEM_BOOST=TRUE -DCMAKE_CXX_COMPILER=g++-13 -DCMAKE_C_COMPILER=gcc-13
       - name: Build
         # Execute the build.
         run: |
