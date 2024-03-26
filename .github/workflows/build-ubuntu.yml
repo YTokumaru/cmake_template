@@ -69,12 +69,12 @@ jobs:
       - name: Configure CMake
         if: ${{ contains(matrix.preset, 'clang') }}
         run: |
-          cmake --preset ${{matrix.preset}} -Dmyproject_USE_SYSTEM_BOOST=TRUE -DCMAKE_CXX_COMPILER=clang++-17 -DCMAKE_C_COMPILER=clang-17 -Dmyproject_ENABLE_CLANG_TIDY=FALSE
+          cmake --preset ${{matrix.preset}} -Dmyproject_USE_SYSTEM_BOOST=TRUE -DCMAKE_CXX_COMPILER=clang++-17 -DCMAKE_C_COMPILER=clang-17 -Dmyproject_ENABLE_CLANG_TIDY=FALSE -Dmyproject_NPROC=2
       
       - name: Configure CMake
         if: ${{ contains(matrix.preset, 'gcc') }}
         run: |
-          cmake --preset ${{matrix.preset}} -Dmyproject_USE_SYSTEM_BOOST=TRUE -DCMAKE_CXX_COMPILER=g++-13 -DCMAKE_C_COMPILER=gcc-13 -Dmyproject_ENABLE_CLANG_TIDY=FALSE
+          cmake --preset ${{matrix.preset}} -Dmyproject_USE_SYSTEM_BOOST=TRUE -DCMAKE_CXX_COMPILER=g++-13 -DCMAKE_C_COMPILER=gcc-13 -Dmyproject_ENABLE_CLANG_TIDY=FALSE -Dmyproject_NPROC=2
       - name: Build
         # Execute the build.
         run: |
