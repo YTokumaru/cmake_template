@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      # max-parallel: 1
 
       # Recommendations:
       #   * support at least 2 operating systems
@@ -46,41 +47,34 @@ jobs:
         with:
           envFile: ".github/constants.env"
 
-      - name: Setup Cpp
-        if: ${{ contains(matrix.preset, 'clang') }}
-        uses: aminya/setup-cpp@v1
-        with:
-          compiler: llvm-15
-          cmake: true
-          ninja: true
-          vcpkg: true
-          cppcheck: true
-          ccache: true
-          clangtidy: 15
-          gcovr: true
-
-      - name: Setup Cpp
-        if: ${{ contains(matrix.preset, 'gcc') }}
-        uses: aminya/setup-cpp@v1
-        with:
-          compiler: gcc-11
-          cmake: true
-          ninja: true
-          vcpkg: true
-          cppcheck: true
-          ccache: true
-          clangtidy: true
-          gcovr: true
-      
-      - name: Install OpenMPI
+      - name: Install dependencies
         run: |
           sudo apt-get update
+          sudo apt-get install -y build-essential
+          sudo apt-get install -y llvm-dev
+          sudo apt-get install -y cmake
+          sudo apt-get install -y gcovr
+          sudo apt-get install -y cppcheck
+          sudo apt-get install -y ccache
+          sudo apt-get install -y ninja-build
           sudo apt-get install -y openmpi-bin libopenmpi-dev
-
+          sudo apt-get install -y libboost-all-dev
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 17
+    
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
+      
       - name: Configure CMake
+        if: ${{ contains(matrix.preset, 'clang') }}
         run: |
-          cmake --preset ${{matrix.preset}}
-
+          cmake --preset ${{matrix.preset}} -Dmyproject_USE_SYSTEM_BOOST=TRUE -DCMAKE_CXX_COMPILER=clang++-17 -DCMAKE_C_COMPILER=clang-17 -Dmyproject_ENABLE_CLANG_TIDY=FALSE -Dmyproject_NPROC=2
+      
+      - name: Configure CMake
+        if: ${{ contains(matrix.preset, 'gcc') }}
+        run: |
+          cmake --preset ${{matrix.preset}} -Dmyproject_USE_SYSTEM_BOOST=TRUE -DCMAKE_CXX_COMPILER=g++-13 -DCMAKE_C_COMPILER=gcc-13 -Dmyproject_ENABLE_CLANG_TIDY=FALSE -Dmyproject_NPROC=2
       - name: Build
         # Execute the build.
         run: |
