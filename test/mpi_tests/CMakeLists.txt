@@ -48,5 +48,5 @@ target_link_system_libraries(
 set_target_properties(parallel_integrate_tests PROPERTIES CXX_CPPCHECK "")
 set_target_properties(parallel_integrate_tests PROPERTIES CXX_CLANG_TIDY "")
 # temporary disable leak detection for parallel tests
-set_tests_properties(parallel_integrate_tests PROPERTIES ENVIRONMENT "ASAN_OPTIONS=detect_leaks=0")
 add_test(NAME parallel_integrate_tests COMMAND mpiexec -np ${myproject_NPROC} $<TARGET_FILE:parallel_integrate_tests>)
+set_tests_properties(parallel_integrate_tests PROPERTIES ENVIRONMENT "ASAN_OPTIONS=detect_leaks=0")
