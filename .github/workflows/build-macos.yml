@@ -47,7 +47,7 @@ jobs:
           brew install ccache
           brew install ninja
           brew install open-mpi
-          brew install boost
+          brew install boost-mpi
 
       - name: Get project name
         uses: cardinalby/export-env-action@v2
