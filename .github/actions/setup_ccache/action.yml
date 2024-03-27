@@ -6,15 +6,17 @@ description: 'sets up ccache'
 runs:
   using: "composite"
   steps:
-    name: Set CCACHE_DIR
-    - if: runner.os != 'Windows'
+    - name: Set CCACHE_DIR (Unixlike)
+      if: runner.os != 'Windows'
       run: |
         echo "CCACHE_DIR=$HOME/.ccache" >> $GITHUB_ENV
       shell: bash
 
-    - if: runner.os == 'Windows'
+    - name: Set CCACHE_DIR (Windows)
+      if: runner.os == 'Windows'
       run: |
         echo "CCACHE_DIR=$env:USERPROFILE\.ccache" | Out-File -Append -Encoding utf8 -FilePath $env:GITHUB_ENV
+      shell: powershell
 
     - name: Cache
       uses: actions/cache@v4
