@@ -47,6 +47,7 @@ jobs:
           brew install ccache
           brew install ninja
           brew install open-mpi
+          brew install boost
 
       - name: Get project name
         uses: cardinalby/export-env-action@v2
@@ -61,7 +62,7 @@ jobs:
       
       - name: Configure CMake
         run: |
-          cmake --preset ${{matrix.preset}} -Dmyproject_NPROC=2
+          cmake --preset ${{matrix.preset}} -Dmyproject_NPROC=2 -Dmyproject_USE_SYSTEM_BOOST=TRUE
 
       - name: Build
         # Execute the build.
