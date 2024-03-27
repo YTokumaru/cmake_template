@@ -56,12 +56,12 @@ jobs:
       - name: Setup CPM cache path
         run: |
           echo "CPM_SOURCE_CACHE=~/.cache/cpm" >> $GITHUB_ENV
-          mkdir -p $CPM_SOURCE_CACHE
+          mkdir -p ${{ env.CPM_SOURCE_CACHE }}
 
       - name: Setup CPM cache
         uses: actions/cache@v2
         with:
-          path: ~/.cache/cpm
+          path: ${{ env.CPM_SOURCE_CACHE }}
           key: ${{ runner.os }}-cpm-${{ hashFiles('CMakePresets.json') }}-${{ hashFiles('**/CMakeLists.txt') }}-${{ hashFiles('**/*.cmake') }}
 
       - name: Setup ccache
