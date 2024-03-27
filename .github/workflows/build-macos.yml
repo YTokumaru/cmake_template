@@ -55,9 +55,8 @@ jobs:
 
       - name: Setup CPM cache path
         run: |
-          CPM_SOURCE_CACHE=~/.cache/cpm
+          "CPM_SOURCE_CACHE=~/.cache/cpm" >> $GITHUB_ENV
           mkdir -p $CPM_SOURCE_CACHE
-          "CPM_SOURCE_CACHE=$CPM_SOURCE_CACHE" >> $GITHUB_ENV
 
       - name: Setup CPM cache
         uses: actions/cache@v2
