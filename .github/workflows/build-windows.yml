@@ -48,17 +48,8 @@ jobs:
           path: C:\Program Files (x86)\Intel\oneAPI
           key: oneapi-${{ runner.os }}-${{ hashFiles('.github/oneapi_components.json') }}-${{ env.BASEKIT_URL }}-${{ env.HPCKIT_URL }}
       
-      - name: Setup CPM cache path
-        run: |
-          mkdir -p $env:USERPROFILE\.cpm\cache
-          echo "CPM_SOURCE_CACHE=$env:USERPROFILE\.cpm\cache" | Out-File -Append -Encoding utf8 -FilePath $env:GITHUB_ENV
-        shell: powershell
-
       - name: Setup CPM cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.CPM_SOURCE_CACHE }}
-          key: ${{ runner.os }}-cpm-${{ hashFiles('CMakePresets.json') }}-${{ hashFiles('**/CMakeLists.txt') }}-${{ hashFiles('**/*.cmake') }}
+        uses: ./github/actions/setup_cpm_cache
       
       - name: Setup ccache
         uses: ./.github/actions/setup_ccache

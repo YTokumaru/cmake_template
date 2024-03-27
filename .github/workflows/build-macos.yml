@@ -53,17 +53,8 @@ jobs:
         with:
           envFile: ".github/constants.env"
 
-      - name: Setup CPM cache path
-        run: |
-          CPM_SOURCE_CACHE=$HOME/.cache/cpm
-          echo "CPM_SOURCE_CACHE=$CPM_SOURCE_CACHE" >> $GITHUB_ENV
-          mkdir -p $CPM_SOURCE_CACHE
-
       - name: Setup CPM cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.CPM_SOURCE_CACHE }}
-          key: ${{ runner.os }}-cpm-${{ hashFiles('CMakePresets.json') }}-${{ hashFiles('**/CMakeLists.txt') }}-${{ hashFiles('**/*.cmake') }}
+        uses: ./github/actions/setup_cpm_cache
 
       - name: Setup ccache
         uses: ./.github/actions/setup_ccache
