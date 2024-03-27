@@ -61,7 +61,7 @@ jobs:
           key: ${{ runner.os }}-cpm-${{ hashFiles('CMakePresets.json') }}-${{ hashFiles('**/CMakeLists.txt') }}-${{ hashFiles('**/*.cmake') }}
       
       - name: Setup ccache
-        uses: ./.github/actions/setup-ccache
+        uses: ./.github/actions/setup_ccache
       
       - name: Install dependencies using chocolatey
         run: |
