@@ -60,8 +60,6 @@ jobs:
           choco install cppcheck
           choco install vswhere
           choco install opencppcoverage
-          Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
-          refreshenv
         shell: powershell
 
       - name: Install Intel OneAPI
