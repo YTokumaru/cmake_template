@@ -17,5 +17,4 @@ TEST_CASE("Parallel integration of a function", "[parallel_integrate]")
   auto func = [](double x) { return 1 / (x * x + 1); };
   const double result = parallel::integrate(world, func, 0.0, 1.0, static_cast<int>(2e9)) * 4;
   if (world.rank() == 0) { REQUIRE_THAT(result, Catch::Matchers::WithinRel(math::constants::pi<double>(), 1e-3)); }
-  env.~environment();
 }

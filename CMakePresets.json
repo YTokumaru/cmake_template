@@ -125,7 +125,8 @@
         "CMAKE_C_COMPILER": "gcc",
         "CMAKE_CXX_COMPILER": "g++",
         "CMAKE_BUILD_TYPE": "Debug",
-        "myproject_ENABLE_COVERAGE": "True"
+        "myproject_ENABLE_COVERAGE": "True",
+        "myproject_ENABLE_IPO": false
       }
     },
     {
@@ -137,7 +138,8 @@
       "cacheVariables": {
         "CMAKE_C_COMPILER": "gcc",
         "CMAKE_CXX_COMPILER": "g++",
-        "CMAKE_BUILD_TYPE": "Release"
+        "CMAKE_BUILD_TYPE": "Release",
+        "myproject_ENABLE_IPO": false
       }
     },
     {
@@ -150,7 +152,8 @@
         "CMAKE_C_COMPILER": "clang",
         "CMAKE_CXX_COMPILER": "clang++",
         "CMAKE_BUILD_TYPE": "Debug",
-        "myproject_ENABLE_COVERAGE": "True"
+        "myproject_ENABLE_COVERAGE": "True",
+        "myproject_ENABLE_IPO": false
       }
     },
     {
@@ -162,7 +165,8 @@
       "cacheVariables": {
         "CMAKE_C_COMPILER": "clang",
         "CMAKE_CXX_COMPILER": "clang++",
-        "CMAKE_BUILD_TYPE": "Release"
+        "CMAKE_BUILD_TYPE": "Release",
+        "myproject_ENABLE_IPO": false
       }
     }
   ],

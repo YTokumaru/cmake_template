@@ -1,4 +1,9 @@
 include(GenerateExportHeader)
+
+if(myproject_USE_SYSTEM_BOOST)
+  find_package(Boost REQUIRED COMPONENTS mpi)
+endif()
+
 add_library(serial_integrate serial_integrate.cpp)
 add_library(myproject::serial_integrate ALIAS serial_integrate)
 target_link_libraries(
@@ -41,11 +46,19 @@ target_link_libraries(
     myproject::myproject_warnings
     myproject::serial_integrate
 )
-target_link_system_libraries(
-    parallel_integrate
-    PRIVATE
-    boost_mpi
-)
+if(myproject_USE_SYSTEM_BOOST)
+  target_link_system_libraries(
+      parallel_integrate
+      PUBLIC
+      Boost::mpi
+  )
+else()
+  target_link_system_libraries(
+      parallel_integrate
+      PRIVATE
+      boost_mpi
+  )
+endif()
 target_include_directories(parallel_integrate ${WARNING_GUARD} PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
                                                                      $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>)
 target_compile_features(
