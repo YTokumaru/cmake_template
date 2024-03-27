@@ -66,10 +66,7 @@ jobs:
           key: ${{ runner.os }}-cpm-${{ hashFiles('CMakePresets.json') }}-${{ hashFiles('**/CMakeLists.txt') }}-${{ hashFiles('**/*.cmake') }}
 
       - name: Setup ccache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ccache
-          key: ${{ runner.os }}-ccache-${{ hashFiles('CMakePresets.json') }}-${{ hashFiles('**/CMakeLists.txt') }}-${{ hashFiles('**/*.cmake') }}
+        uses: ./.github/actions/setup_ccache
       
       - name: Configure CMake
         run: |

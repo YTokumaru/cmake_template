@@ -60,17 +60,8 @@ jobs:
           path: ${{ env.CPM_SOURCE_CACHE }}
           key: ${{ runner.os }}-cpm-${{ hashFiles('CMakePresets.json') }}-${{ hashFiles('**/CMakeLists.txt') }}-${{ hashFiles('**/*.cmake') }}
       
-      - name: Setup ccache path
-        run: |
-          mkdir -p $env:USERPROFILE\.ccache
-          echo "CCACHE_DIR=$env:USERPROFILE\.ccache" | Out-File -Append -Encoding utf8 -FilePath $env:GITHUB_ENV
-        shell: powershell
-
       - name: Setup ccache
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.USERPROFILE }}\.ccache
-          key: ${{ runner.os }}-ccache-${{ hashFiles('CMakePresets.json') }}-${{ hashFiles('**/CMakeLists.txt') }}-${{ hashFiles('**/*.cmake') }}
+        uses: ./.github/actions/setup-ccache
       
       - name: Install dependencies using chocolatey
         run: |
