@@ -49,7 +49,7 @@ jobs:
           key: oneapi-${{ runner.os }}-${{ hashFiles('.github/oneapi_components.json') }}-${{ env.BASEKIT_URL }}-${{ env.HPCKIT_URL }}
       
       - name: Setup CPM cache
-        uses: ./github/actions/setup_cpm_cache
+        uses: ./.github/actions/setup_cpm_cache
       
       - name: Setup ccache
         uses: ./.github/actions/setup_ccache

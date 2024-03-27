@@ -64,7 +64,7 @@ jobs:
           sudo ./llvm.sh 17
 
       - name: Setup CPM cache
-        uses: ./github/actions/setup_cpm_cache
+        uses: ./.github/actions/setup_cpm_cache
   
       - name: Setup ccache
         uses: ./.github/actions/setup_ccache

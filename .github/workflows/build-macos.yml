@@ -54,7 +54,7 @@ jobs:
           envFile: ".github/constants.env"
 
       - name: Setup CPM cache
-        uses: ./github/actions/setup_cpm_cache
+        uses: ./.github/actions/setup_cpm_cache
 
       - name: Setup ccache
         uses: ./.github/actions/setup_ccache
