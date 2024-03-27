@@ -3,21 +3,22 @@ description: 'sets up CPM cache'
 
 runs:
   using: "composite"
-  - name: Set CPM_SOURCE_CACHE (Unixlike)
-    if: runner.os != 'Windows'
-    run: |
-      echo "CPM_SOURCE_CACHE=$HOME/.cpm" >> $GITHUB_ENV
-    shell: bash
+  steps:
+    - name: Set CPM_SOURCE_CACHE (Unixlike)
+      if: runner.os != 'Windows'
+      run: |
+        echo "CPM_SOURCE_CACHE=$HOME/.cpm" >> $GITHUB_ENV
+      shell: bash
 
   
-  - name: Set CPM_SOURCE_CACHE (Windows)
-    if: runner.os == 'Windows'
-    run: |
-      echo "CPM_SOURCE_CACHE=$env:USERPROFILE\.cpm" | Out-File -Append -Encoding utf8 -FilePath $env:GITHUB_ENV
-    shell: powershell
+    - name: Set CPM_SOURCE_CACHE (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        echo "CPM_SOURCE_CACHE=$env:USERPROFILE\.cpm" | Out-File -Append -Encoding utf8 -FilePath $env:GITHUB_ENV
+      shell: powershell
 
-  - name: Cache
-    uses: actions/cache@v4
-    with:
-      path: ${{ env.CPM_SOURCE_CACHE }}
-      key: ${{ runner.os }}-cpm-${{ hashFiles('CMakePresets.json') }}-${{ hashFiles('**/CMakeLists.txt') }}-${{ hashFiles('**/*.cmake') }}-${{ hashFiles('.github/workflows/build-*.yml') }}
+    - name: Cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.CPM_SOURCE_CACHE }}
+        key: ${{ runner.os }}-cpm-${{ hashFiles('CMakePresets.json') }}-${{ hashFiles('**/CMakeLists.txt') }}-${{ hashFiles('**/*.cmake') }}-${{ hashFiles('.github/workflows/build-*.yml') }}
