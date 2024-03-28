@@ -3,13 +3,13 @@
 [![build(Windows)](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/build-windows.yml/badge.svg)](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/build-windows.yml)
 [![build(Ubuntu)](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/build-ubuntu.yml/badge.svg)](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/build-ubuntu.yml)
 [![build(MacOS)](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/build-macos.yml/badge.svg)](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/build-macos.yml)
-[![codecov](https://codecov.io/gh/YTokumaru/cpp-project-kickstarter/graph/badge.svg?token=OUBFIJTUCP)](https://codecov.io/gh/YTokumaru/cpp-project-kickstarter)
+[![Codecov](https://codecov.io/gh/YTokumaru/cpp-project-kickstarter/graph/badge.svg?token=OUBFIJTUCP)](https://codecov.io/gh/YTokumaru/cpp-project-kickstarter)
 [![CodeQL](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/YTokumaru/cpp-project-kickstarter/actions/workflows/codeql-analysis.yml)
 
 ## About C++ Project Kickstarter
 
 This is a CMake project template to get you started with modern C++ project. Works on Windows, Linux, and MacOS.
-This project aims to work seemlessly on major operating systems and without a lengthy setup process. Just install the dependencies through default package manager and you are good to go 🚀!
+This project aims to work seamlessly on major operating systems and without a lengthy setup process. Just install the dependencies through default package manager and you are good to go 🚀!
 
 This template comes with features that help you write bug/error prone code and make it easier to maintain and scale your project:
 
@@ -18,7 +18,7 @@ This template comes with features that help you write bug/error prone code and m
 - Warnings as errors
 - clang-tidy and cppcheck static analysis
 - CPM for dependencies
-- Code coverage with codecov
+- Code coverage with Codecov
 - Continuous integration on three operating systems
 
 The initial project includes:
@@ -31,22 +31,22 @@ The initial project includes:
 ### Use the Github template
 
 First, click the green `Use this template` button near the top of this page.
-This will take you to Github's ['Generate Repository'](https://github.com/ytokumaru/cpp-project-kickstarter/generate) page.
+This will take you to GitHub's ['Generate Repository'](https://github.com/ytokumaru/cpp-project-kickstarter/generate) page.
 Fill in a repository name and short description, and click 'Create repository from template'.
-This will allow you to create a new repository in your Github account,
-prepopulated with the contents of this project.
+This will allow you to create a new repository in your GitHub account,
+pre-populated with the contents of this project.
 
 After creating the project please wait until the cleanup workflow has finished
-setting up your project and commited the changes.
+setting up your project and committed the changes.
 
 Now you can clone the project locally and get to work!
 
     git clone https://github.com/<user>/<your_new_repo>.git
 
-### Add your codecov token
+### Add your Codecov token
 
-To enable codecov, you need to add your codecov token to the repository secrets as `CODECOV_TOKEN`.
-You may also want to create a badge for codecov and add it to the README.
+To enable Codecov, you need to add your Codecov token to the repository secrets as `CODECOV_TOKEN`.
+You may also want to create a badge for Codecov and add it to the README.
 
 ### Setting up the dependencies
 
@@ -58,13 +58,13 @@ Before you start, we recommend you to install a package manager [Chocolatey](htt
 
 If you want to use Visual Studio as your IDE, install Visual Studio 2022. If you want to use other editors, install Visual Studio Build Tools 2022.
 
-  - Install using gui
+  - Install using GUI
 Download the installer from [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/).
 Run the installer and select the "Desktop development with C++" workload.
 If you want to be able to compile with clang, search for "clang" in the individual components tab and install the "Clang compiler for Windows" component and "MSBuild Support for llvm toolset".
 You can change the configuration later from the installer.
 
-Alternatively, you can use choco to install Visual Studio / Visual Studio Build Tools 2022.
+Alternatively, you can use `choco` to install Visual Studio / Visual Studio Build Tools 2022.
 
 ```powershell
 # Install Visual Studio Build Tools 2022
@@ -74,19 +74,19 @@ choco install visualstudio2022buildtools --package-parameters "--config path-to-
 choco install visualstudio2022community --package-parameters "--config path-to-this-project's-.vsconfig"
 ```
 
-- Install ccache
+- Install `ccache`
 
 ```powershell
 choco install ccache
 ```
 
-- Install cppcheck
+- Install `cppcheck`
 
 ```powershell
 choco install cppcheck
 ```
 
-- Install vswhere
+- Install `vswhere`
 
 ```powershell
 choco install vswhere
@@ -128,7 +128,7 @@ Feel free to modify the presets to your liking in `CMakePresets.json`.
 
 ### Caching
 
-This project uses 'actions/cache' to speed up the CI on github actions. If you have trouble compiling soley in Github Actions, consider removing the cache and trying again. Github CLI is useful for this kind of operation.
+This project uses 'actions/cache' to speed up the CI on GitHub actions. If you have trouble compiling solely in GitHub Actions, consider removing the cache and trying again. GitHub CLI is useful for this kind of operation.
 
 ### MPI support
 
@@ -170,7 +170,7 @@ If you want to update the installer itself, change the URL in the workflow file.
 
 ## Experiencing issues?
 
-### Debugging CMakefile
+### Debugging `CMakeLists.txt`
 
 Use options `--trace`, `--trace-source FILENAME`, `-trace-expand` when configuring cmake project to debug cmakefile
 
