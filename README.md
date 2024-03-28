@@ -126,6 +126,10 @@ Feel free to modify the presets to your liking in `CMakePresets.json`.
 
 ## Customizing the project
 
+### Caching
+
+This project uses 'actions/cache' to speed up the CI on github actions. If you have trouble compiling soley in Github Actions, consider removing the cache and trying again. Github CLI is useful for this kind of operation.
+
 ### MPI support
 
 The project supports MPI (Message Passing Interface) for distributed computing. By default, MPI is disabled. To enable MPI, you need to set `"myproject_ENABLE_MPI": "ON"` in the `CMakePresets.json` file. 
