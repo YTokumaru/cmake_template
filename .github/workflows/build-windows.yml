@@ -47,15 +47,19 @@ jobs:
         with:
           path: C:\Program Files (x86)\Intel\oneAPI
           key: oneapi-${{ runner.os }}-${{ hashFiles('.github/oneapi_components.json') }}-${{ env.BASEKIT_URL }}-${{ env.HPCKIT_URL }}
-
+      
+      - name: Setup CPM cache
+        uses: ./.github/actions/setup_cpm_cache
+      
+      - name: Setup ccache
+        uses: ./.github/actions/setup_ccache
+      
       - name: Install dependencies using chocolatey
         run: |
           choco install ccache
           choco install cppcheck
           choco install vswhere
           choco install opencppcoverage
-          Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
-          refreshenv
         shell: powershell
 
       - name: Install Intel OneAPI
@@ -74,7 +78,7 @@ jobs:
 
       - name: Configure CMake
         run: |
-          cmake --preset ${{matrix.preset}} -DGIT_SHA:STRING=${{ github.sha }}
+          cmake --preset ${{matrix.preset}} -DGIT_SHA:STRING=${{ github.sha }} -DCPM_SOURCE_CACHE=${{ env.CPM_SOURCE_CACHE }}
         shell: powershell
 
       - name: Build

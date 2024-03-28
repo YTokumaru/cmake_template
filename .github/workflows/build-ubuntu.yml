@@ -62,10 +62,13 @@ jobs:
           wget https://apt.llvm.org/llvm.sh
           chmod +x llvm.sh
           sudo ./llvm.sh 17
-    
-      # - name: Setup tmate session
-      #   uses: mxschmitt/action-tmate@v3
-      
+
+      - name: Setup CPM cache
+        uses: ./.github/actions/setup_cpm_cache
+  
+      - name: Setup ccache
+        uses: ./.github/actions/setup_ccache
+          
       - name: Configure CMake
         if: ${{ contains(matrix.preset, 'clang') }}
         run: |

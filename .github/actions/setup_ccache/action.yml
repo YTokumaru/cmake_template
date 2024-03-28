@@ -1,0 +1,27 @@
+name: Setup ccache
+description: 'sets up ccache'
+
+# Specification of the ccache directory is available at https://ccache.dev/manual/4.9.html#_location_of_the_configuration_file
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set CCACHE_DIR (Unixlike)
+      if: runner.os != 'Windows'
+      run: |
+        echo "CCACHE_DIR=$HOME/.ccache" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Set CCACHE_DIR (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        echo "CCACHE_DIR=$env:USERPROFILE\.ccache" | Out-File -Append -Encoding utf8 -FilePath $env:GITHUB_ENV
+      shell: powershell
+
+    - name: Cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.CCACHE_DIR }}
+        key: ${{ runner.os }}-ccache-${{ hashFiles('CMakePresets.json') }}-${{ hashFiles('**/CMakeLists.txt') }}-${{ hashFiles('**/*.cmake') }}-${{ hashFiles('.github/workflows/build-*.yml') }}
+
+    

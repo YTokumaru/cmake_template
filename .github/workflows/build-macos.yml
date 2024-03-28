@@ -52,6 +52,13 @@ jobs:
         uses: cardinalby/export-env-action@v2
         with:
           envFile: ".github/constants.env"
+
+      - name: Setup CPM cache
+        uses: ./.github/actions/setup_cpm_cache
+
+      - name: Setup ccache
+        uses: ./.github/actions/setup_ccache
+      
       - name: Configure CMake
         run: |
           cmake --preset ${{matrix.preset}} -Dmyproject_NPROC=2
