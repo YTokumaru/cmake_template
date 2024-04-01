@@ -5,7 +5,7 @@
 
 [[nodiscard]] SAMPLE_LIBRARY_EXPORT int factorial(int) noexcept;
 
-[[nodiscard]] constexpr int factorial_constexpr(int input) noexcept
+[[nodiscard]] constexpr unsigned int factorial_constexpr(int unsigned input) noexcept
 {
   if (input == 0) { return 1; }
 

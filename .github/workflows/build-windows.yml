@@ -4,10 +4,13 @@ on:
   release:
     types: [published]
   push:
-    tags:
     branches:
       - main
       - develop
+
+env:
+  BASEKIT_URL: https://registrationcenter-download.intel.com/akdlm/IRC_NAS/62641e01-1e8d-4ace-91d6-ae03f7f8a71f/w_BaseKit_p_2024.0.0.49563_offline.exe
+  HPCKIT_URL: https://registrationcenter-download.intel.com/akdlm/IRC_NAS/5b36181e-4974-4733-91c7-0c10c54900a5/w_HPCKit_p_2024.0.0.49588_offline.exe
 
 jobs:
   Test:
@@ -33,58 +36,66 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      # TODO: Add caching with presets
-      # - name: Setup Cache
-      #   uses: ./.github/actions/setup_cache
-      #   with:
-      #     compiler: ${{ matrix.compiler }}
-      #     build_type: ${{ matrix.build_type }}
-      #     packaging_maintainer_mode: ${{ matrix.packaging_maintainer_mode }}
-      #     generator: ${{ matrix.generator }}
-
       - name: Get project name
         uses: cardinalby/export-env-action@v2
         with:
           envFile: ".github/constants.env"
-
-      - name: Install dependencies
+      
+      - name: Setup OneAPI cache
+        id: setup_oneapi_cache
+        uses: actions/cache@v4
+        with:
+          path: C:\Program Files (x86)\Intel\oneAPI
+          key: oneapi-${{ runner.os }}-${{ hashFiles('.github/oneapi_components.json') }}-${{ env.BASEKIT_URL }}-${{ env.HPCKIT_URL }}
+      
+      - name: Setup CPM cache
+        uses: ./.github/actions/setup_cpm_cache
+      
+      - name: Setup ccache
+        uses: ./.github/actions/setup_ccache
+      
+      - name: Install dependencies using chocolatey
         run: |
           choco install ccache
           choco install cppcheck
           choco install vswhere
           choco install opencppcoverage
-          Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
-          refreshenv
+        shell: powershell
+
+      - name: Install Intel OneAPI
+        if: steps.setup_oneapi_cache.outputs.cache-hit != 'true'
+        run: powershell .github/scripts/install_oneapi.ps1 "${{ env.BASEKIT_URL }}" "${{ env.HPCKIT_URL }}" ".github/oneapi_components.json"
+        shell: powershell
+      
+      - name: Set Environment Variables
+        run: powershell -File .github/scripts/set_env_vars.ps1 'C:\Program Files (x86)\Intel\oneAPI\setvars.bat'
+        shell: powershell
+
+      - name: (Debug) Show Path
+        run: |
+          echo $env:PATH
         shell: powershell
 
       - name: Configure CMake
         run: |
-          Import-Module $(vswhere -latest -products * -find **/Common7/Tools/Microsoft.VisualStudio.DevShell.dll)
-          Enter-VsDevShell $(vswhere -latest -property instanceId) -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'
-          cmake -S . --preset ${{matrix.preset}} -DGIT_SHA:STRING=${{ github.sha }}
+          cmake --preset ${{matrix.preset}} -DGIT_SHA:STRING=${{ github.sha }} -DCPM_SOURCE_CACHE=${{ env.CPM_SOURCE_CACHE }}
         shell: powershell
 
       - name: Build
         # Execute the build.
         run: |
-          Import-Module $(vswhere -latest -products * -find **/Common7/Tools/Microsoft.VisualStudio.DevShell.dll)
-          Enter-VsDevShell $(vswhere -latest -property instanceId) -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'
           cmake --build --preset build-${{matrix.preset}}
         shell: powershell
 
       - name: Test
         if: ${{ !contains(matrix.preset, 'debug') }}
         run: |
-          Import-Module $(vswhere -latest -products * -find **/Common7/Tools/Microsoft.VisualStudio.DevShell.dll)
-          Enter-VsDevShell $(vswhere -latest -property instanceId) -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'
           ctest --preset test-${{matrix.preset}}
         shell: powershell
 
       - name: Test & Coverage
         if: ${{ contains(matrix.preset, 'debug') }}
         run: |
-          Import-Module $(vswhere -latest -products * -find **/Common7/Tools/Microsoft.VisualStudio.DevShell.dll)
-          Enter-VsDevShell $(vswhere -latest -property instanceId) -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'
           & "C:\Program Files\OpenCppCoverage\OpenCppCoverage.exe" --export_type cobertura:coverage.xml --cover_children --sources ${{ github.workspace }}\src --sources ${{ github.workspace }}\include -- ctest.exe --preset test-${{matrix.preset}}
         shell: powershell
 

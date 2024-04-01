@@ -11,7 +11,11 @@
       "description": "General settings that apply to all configurations",
       "hidden": true,
       "binaryDir": "${sourceDir}/out/build/${presetName}",
-      "installDir": "${sourceDir}/out/install/${presetName}"
+      "installDir": "${sourceDir}/out/install/${presetName}",
+      "cacheVariables": {
+        "myproject_ENABLE_MPI": "ON",
+        "myproject_NPROC": "4"
+      }
     },
     {
       "name": "conf-windows-common",
@@ -121,7 +125,8 @@
         "CMAKE_C_COMPILER": "gcc",
         "CMAKE_CXX_COMPILER": "g++",
         "CMAKE_BUILD_TYPE": "Debug",
-        "myproject_ENABLE_COVERAGE": "True"
+        "myproject_ENABLE_COVERAGE": "True",
+        "myproject_ENABLE_IPO": false
       }
     },
     {
@@ -133,7 +138,8 @@
       "cacheVariables": {
         "CMAKE_C_COMPILER": "gcc",
         "CMAKE_CXX_COMPILER": "g++",
-        "CMAKE_BUILD_TYPE": "Release"
+        "CMAKE_BUILD_TYPE": "Release",
+        "myproject_ENABLE_IPO": false
       }
     },
     {
@@ -146,7 +152,8 @@
         "CMAKE_C_COMPILER": "clang",
         "CMAKE_CXX_COMPILER": "clang++",
         "CMAKE_BUILD_TYPE": "Debug",
-        "myproject_ENABLE_COVERAGE": "True"
+        "myproject_ENABLE_COVERAGE": "True",
+        "myproject_ENABLE_IPO": false
       }
     },
     {
@@ -158,7 +165,8 @@
       "cacheVariables": {
         "CMAKE_C_COMPILER": "clang",
         "CMAKE_CXX_COMPILER": "clang++",
-        "CMAKE_BUILD_TYPE": "Release"
+        "CMAKE_BUILD_TYPE": "Release",
+        "myproject_ENABLE_IPO": false
       }
     }
   ],

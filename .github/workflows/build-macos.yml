@@ -4,7 +4,6 @@ on:
   release:
     types: [published]
   push:
-    tags:
     branches:
       - main
       - develop
@@ -47,14 +46,22 @@ jobs:
           brew install cppcheck
           brew install ccache
           brew install ninja
+          brew install open-mpi
 
       - name: Get project name
         uses: cardinalby/export-env-action@v2
         with:
           envFile: ".github/constants.env"
+
+      - name: Setup CPM cache
+        uses: ./.github/actions/setup_cpm_cache
+
+      - name: Setup ccache
+        uses: ./.github/actions/setup_ccache
+      
       - name: Configure CMake
         run: |
-          cmake --preset ${{matrix.preset}}
+          cmake --preset ${{matrix.preset}} -Dmyproject_NPROC=2
 
       - name: Build
         # Execute the build.
